@@ -4,8 +4,14 @@ import Button from "@mui/material/Button";
 export default function Login() {
   return (
     <section className="login-section">
-      <div className="part1">image section</div>
-      <div className="part2">
+      <div className="video-tutorial">
+        <img
+          className="video-tutorial"
+          src="../../../src/assets/video-tutorial.jpeg"
+          alt="this is video tutorial image"
+        />
+      </div>
+      <div className="login-form">
         {" "}
         <Button variant="outlined">Primary</Button>
       </div>

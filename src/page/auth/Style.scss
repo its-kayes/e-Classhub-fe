@@ -1,4 +1,5 @@
-$primary-color: #007bff;
+// $primary-color: #007bff;
+$secondary-color: #5181fd0d;
 
 .login-section {
   width: 100vw;
@@ -6,16 +7,24 @@ $primary-color: #007bff;
   display: flex;
   justify-content: space-between;
 
-  .part1 {
+  .video-tutorial {
     width: 50%;
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: $secondary-color;
+
+    img {
+      width: 588px;
+      height: 334.92px;
+      top: 373px;
+      left: 109px;
+    }
   }
 
-  .part2 {
+  .login-form {
     width: 50%;
     display: flex;
     flex-direction: column;
