@@ -1,0 +1,25 @@
+$primary-color: #007bff;
+
+.login-section {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+
+  .part1 {
+    width: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .part2 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
