@@ -1,6 +1,8 @@
 // $primary-color: #007bff;
 $secondary-color: #5181fd0d;
 
+$primary-btn-color: #27a769;
+
 .login-section {
   width: 100vw;
   height: 100vh;
@@ -30,5 +32,66 @@ $secondary-color: #5181fd0d;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .title {
+      width: 553px;
+      height: 30px;
+
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 30px;
+      letter-spacing: 0em;
+      text-align: left;
+
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 30px;
+      letter-spacing: 0em;
+      text-align: left;
+
+      //   stylename: leading-tight/text-2xl/font-extrabold;
+      font-family: Inter;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 30px;
+      letter-spacing: 0em;
+      text-align: left;
+
+      color: #111928;
+    }
+
+    .sub-title {
+      width: 191px;
+      height: 24px;
+
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: 0px;
+      text-align: center;
+
+      font-family: Inter;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0px;
+      text-align: center;
+
+      span {
+        color: $primary-btn-color;
+      }
+    }
+
+    .inp-box {
+      width: Fill (553px);
+      height: Hug (56px);
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px;
+      gap: 10px;
+    }
   }
 }

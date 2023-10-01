@@ -1,5 +1,4 @@
 import "./Style.scss";
-import Button from "@mui/material/Button";
 
 export default function Login() {
   return (
@@ -12,8 +11,33 @@ export default function Login() {
         />
       </div>
       <div className="login-form">
-        {" "}
-        <Button variant="outlined">Primary</Button>
+        <section>
+          <h1 className="title"> Welcome Back 👋🏻</h1>
+          <p className="sub-title">
+            {" "}
+            No Account Yet? <span> Sign Up </span>{" "}
+          </p>
+
+          <form action="">
+            <label htmlFor="email">Email</label>
+            <input
+              className="inp-box"
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+            />
+
+            <label htmlFor="password">Password</label>
+            <input
+              className="inp-box"
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+
+            <button type="submit">Login</button>
+          </form>
+        </section>
       </div>
     </section>
   );
