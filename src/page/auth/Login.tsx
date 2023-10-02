@@ -11,7 +11,7 @@ export default function Login() {
         />
       </div>
       <div className="login-form">
-        <section>
+        <section className="login-form-box">
           <h1 className="title"> Welcome Back 👋🏻</h1>
           <p className="sub-title">
             {" "}
@@ -19,21 +19,25 @@ export default function Login() {
           </p>
 
           <form action="">
-            <label htmlFor="email">Email</label>
-            <input
-              className="inp-box"
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-            />
+            <div className="inp">
+              <label htmlFor="email">Email</label>
+              <input
+                className="inp-box"
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+              />
+            </div>
 
-            <label htmlFor="password">Password</label>
-            <input
-              className="inp-box"
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-            />
+            <div className="inp">
+              <label htmlFor="password">Password</label>
+              <input
+                className="inp-box"
+                type="password"
+                id="password"
+                placeholder="*********"
+              />
+            </div>
 
             <button type="submit">Login</button>
           </form>
