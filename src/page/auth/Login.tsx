@@ -39,6 +39,19 @@ export default function Login() {
               />
             </div>
 
+            <div className="login-feature-box">
+              <div className="remember-me-box">
+                <input type="checkbox" id="remember" />
+                <label className="remember-me" htmlFor="remember">
+                  Remember me
+                </label>
+              </div>
+
+              <a className="forget-pass" href="#" target="_blank">
+                Forgot password?
+              </a>
+            </div>
+
             <button type="submit">Login</button>
           </form>
         </section>

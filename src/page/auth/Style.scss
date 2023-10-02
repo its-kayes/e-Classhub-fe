@@ -98,6 +98,26 @@ $primary-btn-color: #27a769;
         background-color: #f9fafb;
         gap: 10px;
       }
+
+      .login-feature-box {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 15px;
+
+        .remember-me-box {
+          display: flex;
+          align-items: center;
+          color: #3a3541de;
+
+          .remember-me {
+            margin-left: 10px;
+          }
+        }
+
+        .forget-pass {
+          color: #f4ba18;
+        }
+      }
     }
   }
 }
