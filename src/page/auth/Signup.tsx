@@ -1,3 +1,4 @@
+import RadioButtonsGroup from "../../elements/btn/RadioButtonsGroup";
 import "./Style.scss";
 
 export default function Signup() {
@@ -50,7 +51,7 @@ export default function Signup() {
             </div>
 
             <div className="inp">
-              <label htmlFor="password">Confirm Password</label>
+              <label htmlFor="confirm-password">Confirm Password</label>
               <input
                 className="inp-box"
                 type="password"
@@ -58,6 +59,8 @@ export default function Signup() {
                 placeholder="*********"
               />
             </div>
+
+            <RadioButtonsGroup title="Who you are ? 🐥" />
 
             <div className="login-feature-box">
               <div className="remember-me-box">
