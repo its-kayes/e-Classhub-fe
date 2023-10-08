@@ -1,6 +1,6 @@
 import "./Style.scss";
 
-export default function Login() {
+export default function Signup() {
   return (
     <section className="login-section">
       <div className="video-tutorial">
@@ -15,10 +15,20 @@ export default function Login() {
           <h1 className="title"> Welcome Back 👋🏻</h1>
           <p className="sub-title">
             {" "}
-            No Account Yet ? <span> Sign Up </span>{" "}
+            Already have an account ?<span> Login </span>{" "}
           </p>
 
           <form action="">
+            <div className="inp">
+              <label htmlFor="email">Your Full Name</label>
+              <input
+                className="inp-box"
+                type="text"
+                id="name"
+                placeholder="Enter your full name"
+              />
+            </div>
+
             <div className="inp">
               <label htmlFor="email">Email</label>
               <input
@@ -39,20 +49,28 @@ export default function Login() {
               />
             </div>
 
+            <div className="inp">
+              <label htmlFor="password">Confirm Password</label>
+              <input
+                className="inp-box"
+                type="password"
+                id="confirm-password"
+                placeholder="*********"
+              />
+            </div>
+
             <div className="login-feature-box">
               <div className="remember-me-box">
                 <input type="checkbox" id="remember" />
                 <label className="remember-me" htmlFor="remember">
-                  Remember me
+                  I accept the Terms and Conditions of the website{" "}
+                  <span> Terms of Use </span>
+                  and <span> Privacy Policy </span> of the website.
                 </label>
               </div>
-
-              <a className="forget-pass" href="#" target="_blank">
-                Forgot password?
-              </a>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit">Sign Up</button>
           </form>
         </section>
       </div>

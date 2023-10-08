@@ -113,6 +113,10 @@ $primary-btn-color: #27a769;
           .remember-me {
             margin-left: 10px;
           }
+
+          span {
+            color: $primary-btn-color;
+          }
         }
 
         .forget-pass {
