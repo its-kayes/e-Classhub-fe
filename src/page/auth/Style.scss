@@ -1,4 +1,7 @@
-$primary-color: #007bff;
+// $primary-color: #007bff;
+$secondary-color: #5181fd0d;
+
+$primary-btn-color: #27a769;
 
 .login-section {
   width: 100vw;
@@ -6,20 +9,128 @@ $primary-color: #007bff;
   display: flex;
   justify-content: space-between;
 
-  .part1 {
+  .video-tutorial {
     width: 50%;
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: $secondary-color;
+
+    img {
+      width: 588px;
+      height: 334.92px;
+      top: 373px;
+      left: 109px;
+    }
   }
 
-  .part2 {
+  .login-form {
     width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .login-form-box {
+      width: 500px;
+
+      .title {
+        // width: 553px;
+        // height: 30px;
+
+        font-family: Inter;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 30px;
+        letter-spacing: 0em;
+        text-align: left;
+
+        font-family: Inter;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 30px;
+        letter-spacing: 0em;
+        text-align: left;
+
+        //   stylename: leading-tight/text-2xl/font-extrabold;
+        font-family: Inter;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 30px;
+        letter-spacing: 0em;
+        text-align: left;
+
+        color: #111928;
+      }
+
+      .sub-title {
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: center;
+
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: start;
+
+        span {
+          color: $primary-btn-color;
+        }
+      }
+
+      .inp {
+        display: grid;
+        gap: 8px;
+        padding-bottom: 15px;
+      }
+
+      .inp-box {
+        padding: 16px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        background-color: #f9fafb;
+        gap: 10px;
+      }
+
+      .login-feature-box {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 20px;
+        padding-top: 10px;
+
+        .remember-me-box {
+          display: flex;
+          align-items: center;
+          color: #3a3541de;
+
+          .remember-me {
+            margin-left: 10px;
+          }
+
+          span {
+            color: $primary-btn-color;
+          }
+        }
+
+        .forget-pass {
+          color: #f4ba18;
+        }
+      }
+
+      button {
+        width: 100%;
+        height: 56px;
+        background-color: $primary-btn-color;
+        font-weight: normal;
+        color: white;
+      }
+    }
   }
 }
