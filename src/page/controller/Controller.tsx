@@ -109,18 +109,27 @@ export default function Controller() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar
+          sx={{
+            backgroundColor: "#FFFFFF",
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
-              marginRight: 5,
+              marginRight: 1,
               ...(open && { display: "none" }),
+              color: "black",
             }}
           >
-            <MenuIcon />
+            <MenuIcon
+              sx={{
+                fontSize: "2rem",
+              }}
+            />
           </IconButton>
           <Box
             sx={{
@@ -129,19 +138,61 @@ export default function Controller() {
               justifyContent: "flex-start",
             }}
           >
-            <AutoStoriesOutlinedIcon
+            <AutoStoriesOutlinedIcon />
+            <Box
               sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 40,
+                height: 40,
+                borderRadius: "50%",
                 marginRight: 2,
               }}
-            />
-            <Typography variant="h6" noWrap component="div">
-              e-ClassHub
+            >
+              <img src="/logo.png" alt="" />
+            </Box>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{
+                color: "#1C64F2",
+                fontWeight: "bold",
+              }}
+            >
+              E-ClassHub
             </Typography>
           </Box>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
+          <Toolbar
+            sx={{
+              backgroundColor: "#FFFFFF",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+              }}
+            >
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  color: "#1C64F2",
+                  fontWeight: "bold",
+                }}
+              >
+                E-ClassHub
+              </Typography>
+            </Box>
+          </Toolbar>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
