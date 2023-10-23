@@ -11,6 +11,7 @@ const buttons = [
     key="Stream"
     sx={{
       textTransform: "none",
+      color: "black",
     }}
   >
     Stream
@@ -19,6 +20,7 @@ const buttons = [
     key="Classwork"
     sx={{
       textTransform: "none",
+      color: "black",
     }}
   >
     Classwork
@@ -27,6 +29,7 @@ const buttons = [
     key="People"
     sx={{
       textTransform: "none",
+      color: "black",
     }}
   >
     People
@@ -41,6 +44,7 @@ export default function ClassList() {
           display: "flex",
           flexDirection: "column",
           alignItems: "self-start",
+          marginBottom: "20px",
           "& > *": {
             m: 1,
           },
@@ -54,33 +58,37 @@ export default function ClassList() {
           width: "100%",
         }}
       >
-        <div className="class-half-details">
-          <div className="header">
-            <p style={{ fontSize: "30px" }}> CSE 12th Final Project </p>
-            <p> Mr. Emrul Kayes </p>
-          </div>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+          <div className="class-half-details" style={{ marginBottom: "20px" }}>
+            <div className="header">
+              <p style={{ fontSize: "25px" }}> CSE 12th Final Project </p>
+              <p> Mr. Emrul Kayes </p>
+            </div>
 
-          <div className="icons-box">
-            <PermContactCalendarOutlinedIcon
-              sx={{
-                fontSize: "1.5rem",
-                marginRight: "15px",
-              }}
-            />
-            <FileCopyOutlinedIcon
-              sx={{
-                fontSize: "1.5rem",
-                marginRight: "15px",
-              }}
-            />
-            <MoreVertOutlinedIcon
-              sx={{
-                fontSize: "1.5rem",
-                marginRight: "15px",
-              }}
-            />
+            <div className="icons-box">
+              <PermContactCalendarOutlinedIcon
+                sx={{
+                  fontSize: "1.5rem",
+                  marginRight: "15px",
+                }}
+              />
+
+              <FileCopyOutlinedIcon
+                sx={{
+                  fontSize: "1.5rem",
+                  marginRight: "15px",
+                }}
+              />
+
+              <MoreVertOutlinedIcon
+                sx={{
+                  fontSize: "1.5rem",
+                  marginRight: "15px",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        ))}
       </Box>
     </Box>
   );
