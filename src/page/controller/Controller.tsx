@@ -21,6 +21,8 @@ import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import SettingsSuggestOutlinedIcon from "@mui/icons-material/SettingsSuggestOutlined";
 import RecyclingOutlinedIcon from "@mui/icons-material/RecyclingOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
+import Button from "@mui/material/Button";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const drawerWidth = 240;
 
@@ -112,6 +114,7 @@ export default function Controller() {
         <Toolbar
           sx={{
             backgroundColor: "#FFFFFF",
+            width: "100%",
           }}
         >
           <IconButton
@@ -136,36 +139,94 @@ export default function Controller() {
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-start",
+              width: "100%",
             }}
           >
             <AutoStoriesOutlinedIcon />
             <Box
               sx={{
                 display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 40,
-                height: 40,
-                borderRadius: "50%",
-                marginRight: 2,
+                justifyContent: "space-between",
+                width: "inherit",
               }}
             >
-              <img src="/logo.png" alt="" />
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    marginRight: 2,
+                  }}
+                >
+                  <img src="/logo.png" alt="" />
+                </Box>
+                <Typography
+                  variant="h6"
+                  noWrap
+                  component="div"
+                  sx={{
+                    color: "#1C64F2",
+                    fontWeight: "bold",
+                  }}
+                >
+                  E-ClassHub
+                </Typography>
+              </Box>
+
+              <Box
+                sx={{
+                  display: "flex",
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  startIcon={<AddOutlinedIcon />}
+                  sx={{
+                    textTransform: "none",
+                    mr: 5,
+                    fontWeight: "bold",
+                    borderRadius: 2,
+                    color: "#1C64F2",
+                  }}
+                >
+                  Create or join classroom
+                </Button>
+                <Box
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: "50%",
+                    marginLeft: 1,
+                  }}
+                >
+                  <img
+                    style={{
+                      width: 40,
+                      height: 40,
+                      border: "1px solid #1C64F2",
+                      borderRadius: "50%",
+                    }}
+                    src="/src/assets/kayes.jpg"
+                    alt=""
+                  />
+                </Box>
+                B
+              </Box>
             </Box>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                color: "#1C64F2",
-                fontWeight: "bold",
-              }}
-            >
-              E-ClassHub
-            </Typography>
           </Box>
         </Toolbar>
       </AppBar>
+
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <Toolbar
