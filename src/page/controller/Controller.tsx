@@ -23,7 +23,7 @@ import RecyclingOutlinedIcon from "@mui/icons-material/RecyclingOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import Button from "@mui/material/Button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import ClassList from "./ClassList";
+import { Link, Outlet } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -265,26 +265,28 @@ export default function Controller() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem key={"Home"} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+          <Link to="/classes">
+            <ListItem key={"Home"} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
                 }}
               >
-                <OtherHousesOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <OtherHousesOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Home"} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
 
           <ListItem key={"Enrolled"} disablePadding sx={{ display: "block" }}>
             <ListItemButton
@@ -338,35 +340,38 @@ export default function Controller() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem key={"Setting"} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+          <Link to="/classes/setting">
+            <ListItem key={"Setting"} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
                 }}
               >
-                <SettingsSuggestOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={"Setting"}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <SettingsSuggestOutlinedIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={"Setting"}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         </List>
       </Drawer>
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <ClassList />
+        <Outlet />
+        {/* <ClassList /> */}
       </Box>
     </Box>
   );
