@@ -1,0 +1,31 @@
+$title-color: #111928;
+$sub-title-color: #6b7280;
+
+.primary-user-info-box {
+  display: flex;
+  align-items: center;
+  // width: 100%;
+  width: 200%; // TODO: remove this line
+
+  img {
+    width: 112px;
+    height: 112px;
+    border: 1px solid #ccc;
+    border-radius: 5%;
+    margin-right: 20px;
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 36px;
+    color: $title-color;
+  }
+
+  .sub-title {
+    font-size: 14px;
+    color: $sub-title-color;
+    line-height: 21px;
+  }
+}
