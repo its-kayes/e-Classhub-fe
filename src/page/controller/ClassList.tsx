@@ -6,6 +6,7 @@ import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCale
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import "./Style.scss";
+import { PostAnnouncementImage, UserImage } from "../../importer/importer";
 
 const buttons = [
   <Button
@@ -100,7 +101,7 @@ export default function ClassList() {
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <div className="announcement-writing-box">
-              <img src="/src/assets/kayes.jpg" alt="" />
+              <img src={UserImage} alt="" />
               <input
                 type="text"
                 placeholder="Announce something to your class"
@@ -109,7 +110,7 @@ export default function ClassList() {
 
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
               <div className="post-short-details">
-                <img src="/src/assets/monitor.png" alt="" />
+                <img src={PostAnnouncementImage} alt="" />
                 <div>
                   <p>
                     {" "}
