@@ -1,8 +1,6 @@
 $border-color: #ababab;
 
 .class-half-details {
-  width: 92vw;
-  max-width: 92vw;
   border: 1px solid $border-color;
   border-radius: 10px 10px 10px 10px;
 
@@ -29,7 +27,6 @@ $border-color: #ababab;
 .upcoming-box {
   border: 1px solid $border-color;
   border-radius: 10px 10px 10px 10px;
-  // padding: 10px;
   padding-top: 10px;
   padding-left: 20px;
   padding-bottom: 30px;
@@ -85,7 +82,7 @@ $border-color: #ababab;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 30px;
 
   img {
     width: 50px;
@@ -97,10 +94,9 @@ $border-color: #ababab;
   div {
     display: flex;
     justify-content: flex-start;
-    // text-align: start;
+
     width: 100%;
     p {
-      // text-align: start;
       padding-left: 20px;
     }
   }

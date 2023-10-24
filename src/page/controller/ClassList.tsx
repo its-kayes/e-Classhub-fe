@@ -1,13 +1,10 @@
 import Button from "@mui/material/Button";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-
 import "./Style.scss";
 
 const buttons = [
@@ -40,14 +37,6 @@ const buttons = [
   </Button>,
 ];
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 export default function ClassList() {
   return (
     <Box>
@@ -72,7 +61,7 @@ export default function ClassList() {
           width: "100%",
         }}
       >
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
+        {[1].map(() => (
           <div className="class-half-details" style={{ marginBottom: "20px" }}>
             <div className="header">
               <p style={{ fontSize: "25px" }}> CSE 12th Final Project </p>
@@ -107,7 +96,7 @@ export default function ClassList() {
 
       {/* Class list */}
 
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, mt: 5 }}>
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <div className="announcement-writing-box">
@@ -118,18 +107,20 @@ export default function ClassList() {
               />
             </div>
 
-            <div className="post-short-details">
-              <img src="/src/assets/monitor.png" alt="" />
-              <div>
-                <p>
-                  {" "}
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Cupiditate laudantium laboriosam eius? Esse, in laborum
-                  laboriosam eius? Esse, in laborum!
-                </p>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
+              <div className="post-short-details">
+                <img src="/src/assets/monitor.png" alt="" />
+                <div>
+                  <p>
+                    {" "}
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                    Cupiditate laudantium laboriosam eius? Esse, in laborum
+                    laboriosam eius? Esse, in laborum!
+                  </p>
+                </div>
+                <MoreVertOutlinedIcon />
               </div>
-              <MoreVertOutlinedIcon />
-            </div>
+            ))}
           </Grid>
 
           <Grid item xs={3}>
