@@ -2,6 +2,8 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 import "./Style.scss";
 import { UserImage } from "../../importer/importer";
@@ -13,6 +15,18 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: "center",
   color: theme.palette.text.secondary,
 }));
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 export default function Setting() {
   return (
@@ -26,13 +40,50 @@ export default function Setting() {
           >
             <div className="primary-user-info-box">
               <img src={UserImage} alt="" />
-              <div>
-                <p className="name"> Emrul Kayes </p>
-                <p className="sub-title"> Software Engineer </p>
+              <div className="header-box">
+                <div className="title-box">
+                  <p
+                    style={{
+                      fontSize: "25px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Emrul Kayes
+                  </p>
+
+                  <p
+                    style={{
+                      fontSize: "15px",
+                      color: "#aaa",
+                      paddingTop: "5px",
+                    }}
+                  >
+                    Software Engineer
+                  </p>
+                </div>
+
+                <Button
+                  component="label"
+                  variant="contained"
+                  startIcon={<CloudUploadIcon />}
+                  sx={{
+                    textTransform: "none",
+                    width: "150px",
+                    fontSize: "12px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "8px",
+                  }}
+                >
+                  Change picture
+                  <VisuallyHiddenInput type="file" />
+                </Button>
               </div>
             </div>
           </Box>
         </Grid>
+
         <Grid item xs={4}>
           <Item>xs=4</Item>
         </Grid>
