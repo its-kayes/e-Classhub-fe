@@ -25,3 +25,28 @@ $sub-title-color: #6b7280;
     height: 85px;
   }
 }
+
+.language-time-section {
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  .language-section {
+    .language-title {
+      color: $title-color;
+      margin: 0;
+    }
+
+    input {
+      margin-top: 5px;
+      padding: 9px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      width: 100%;
+      background-color: #f9fafb;
+    }
+  }
+  .save-btn {
+    background-color: #1c64f2;
+    color: white;
+  }
+}
