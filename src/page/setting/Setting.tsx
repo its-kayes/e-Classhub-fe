@@ -12,6 +12,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import "./Style.scss";
 import { UserImage } from "../../importer/importer";
 import { Divider } from "@mui/material";
+import GeneralInfo from "../../elements/components/GeneralInfo";
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -95,6 +96,7 @@ export default function Setting() {
               marginBottom: "20px",
             }}
           >
+            {/* Language & Time */}
             <div className="language-time-section">
               <p
                 style={{
@@ -132,6 +134,7 @@ export default function Setting() {
               </div>
             </div>
 
+            {/* Social accounts */}
             <div className="social-section">
               <p
                 style={{
@@ -237,6 +240,9 @@ export default function Setting() {
                 <button className="save-btn"> Save all </button>
               </div>
             </div>
+
+            {/* General Info */}
+            <GeneralInfo />
           </Box>
         </Grid>
 

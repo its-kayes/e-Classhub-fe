@@ -2,6 +2,11 @@ $title-color: #111928;
 $sub-title-color: #6b7280;
 $save-btn-color: #1c64f2;
 
+%save-btn {
+  background-color: $save-btn-color;
+  color: white;
+}
+
 .primary-user-info-box {
   display: flex;
   align-items: center;
@@ -48,8 +53,7 @@ $save-btn-color: #1c64f2;
   }
 
   .save-btn {
-    background-color: $save-btn-color;
-    color: white;
+    @extend %save-btn;
   }
 }
 
@@ -99,7 +103,61 @@ $save-btn-color: #1c64f2;
   }
 
   .save-btn {
-    background-color: $save-btn-color;
-    color: white;
+    @extend %save-btn;
+  }
+}
+
+.general-info-section {
+  .all-input-container {
+    display: flex;
+    align-items: center;
+
+    .first-part {
+      text-align: start;
+      width: 100%;
+      padding-right: 2%;
+      .input-container {
+        .title {
+          color: $title-color;
+          margin: 0;
+          padding-bottom: 5px;
+        }
+
+        input {
+          margin-bottom: 15px;
+          padding: 9px 20px;
+          border: 1px solid #d1d5db;
+          border-radius: 8px;
+          width: 100%;
+          background-color: #f9fafb;
+        }
+      }
+    }
+
+    .second-part {
+      text-align: start;
+      width: 100%;
+      padding-left: 2%;
+      .input-container {
+        .title {
+          color: $title-color;
+          margin: 0;
+          padding-bottom: 5px;
+        }
+
+        input {
+          margin-bottom: 15px;
+          padding: 9px 20px;
+          border: 1px solid #d1d5db;
+          border-radius: 8px;
+          width: 100%;
+          background-color: #f9fafb;
+        }
+      }
+    }
+  }
+
+  .save-btn {
+    @extend %save-btn;
   }
 }
