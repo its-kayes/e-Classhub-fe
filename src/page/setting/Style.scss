@@ -1,5 +1,6 @@
 $title-color: #111928;
 $sub-title-color: #6b7280;
+$save-btn-color: #1c64f2;
 
 .primary-user-info-box {
   display: flex;
@@ -28,7 +29,7 @@ $sub-title-color: #6b7280;
 
 .language-time-section {
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 
   .language-section {
     .language-title {
@@ -45,8 +46,60 @@ $sub-title-color: #6b7280;
       background-color: #f9fafb;
     }
   }
+
   .save-btn {
-    background-color: #1c64f2;
+    background-color: $save-btn-color;
+    color: white;
+  }
+}
+
+.social-section {
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+  .account-box {
+    .per-account-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px, 0px, 16px, 0px;
+
+      .header-box {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: 20px;
+        }
+
+        .title-box {
+          p {
+            margin: 0;
+          }
+
+          .link {
+            color: $save-btn-color;
+            font-size: 14px;
+          }
+
+          .no-link {
+            color: $sub-title-color;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .not-connected-box {
+        button {
+          background-color: $save-btn-color;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .save-btn {
+    background-color: $save-btn-color;
     color: white;
   }
 }

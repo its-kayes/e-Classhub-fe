@@ -1,20 +1,25 @@
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
+// import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 import "./Style.scss";
 import { UserImage } from "../../importer/importer";
+import { Divider } from "@mui/material";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+// const Item = styled(Paper)(({ theme }) => ({
+//   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+//   ...theme.typography.body2,
+//   padding: theme.spacing(1),
+//   textAlign: "center",
+//   color: theme.palette.text.secondary,
+// }));
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -126,11 +131,117 @@ export default function Setting() {
                 <button className="save-btn"> Save all </button>
               </div>
             </div>
+
+            <div className="social-section">
+              <p
+                style={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  marginBottom: "20px",
+                }}
+              >
+                Social accounts
+              </p>
+
+              <div className="account-box">
+                <div className="per-account-box">
+                  <div className="header-box">
+                    <div className="icon">
+                      <FacebookRoundedIcon />
+                    </div>
+                    <div className="title-box">
+                      <p>Facebook account</p>
+                      <p className="link">www.facebook.com/themesberg</p>
+                    </div>
+                  </div>
+
+                  <div className="btn">
+                    <button> Disconnected </button>
+                  </div>
+                </div>
+
+                <Divider
+                  sx={{
+                    marginTop: "15px",
+                    marginBottom: "15px",
+                  }}
+                />
+
+                <div className="per-account-box">
+                  <div className="header-box">
+                    <div className="icon">
+                      <TwitterIcon />
+                    </div>
+                    <div className="title-box">
+                      <p>Twitter account</p>
+                      <p className="link">www.twitter.com/themesberg</p>
+                    </div>
+                  </div>
+
+                  <div className="btn">
+                    <button> Disconnected </button>
+                  </div>
+                </div>
+
+                <Divider
+                  sx={{
+                    marginTop: "15px",
+                    marginBottom: "15px",
+                  }}
+                />
+
+                <div className="per-account-box">
+                  <div className="header-box">
+                    <div className="icon">
+                      <GitHubIcon />
+                    </div>
+                    <div className="title-box">
+                      <p>Github account</p>
+                      <p className="no-link">Not connected</p>
+                    </div>
+                  </div>
+
+                  <div className="not-connected-box">
+                    <button> Connect </button>
+                  </div>
+                </div>
+
+                <Divider
+                  sx={{
+                    marginTop: "15px",
+                    marginBottom: "15px",
+                  }}
+                />
+
+                <div className="per-account-box">
+                  <div className="header-box">
+                    <div className="icon">
+                      <LinkedInIcon />
+                    </div>
+                    <div className="title-box">
+                      <p>Linkedin account</p>
+                      <p className="no-link">Not connected</p>
+                    </div>
+                  </div>
+                  <div className="not-connected-box">
+                    <button> Connect </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  marginTop: "30px",
+                }}
+              >
+                <button className="save-btn"> Save all </button>
+              </div>
+            </div>
           </Box>
         </Grid>
 
         <Grid item xs={4}>
-          <Item>xs=4</Item>
+          {/* <Item>xs=4</Item> */}
         </Grid>
       </Grid>
     </Box>
