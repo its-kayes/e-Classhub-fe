@@ -7,6 +7,7 @@ import SocialInfo from "../../elements/components/SocialInfo";
 import LanguageInfo from "../../elements/components/LanguageInfo";
 import PrimaryInfo from "../../elements/components/PrimaryInfo";
 import "./Style.scss";
+import NotificationsInfo from "../../elements/components/NotificationsInfo";
 
 export default function Setting() {
   return (
@@ -42,6 +43,9 @@ export default function Setting() {
 
             {/* Sessions */}
             <SessionsInfo />
+
+            {/* Notifications Info */}
+            <NotificationsInfo />
           </Box>
         </Grid>
 

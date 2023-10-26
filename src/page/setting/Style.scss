@@ -244,3 +244,41 @@ $save-btn-color: #1c64f2;
     @extend %save-btn;
   }
 }
+
+.notifications-info-section {
+  .account-box {
+    margin-left: 15px;
+    .per-account-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px, 0px, 16px, 0px;
+
+      .header-box {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: 20px;
+        }
+
+        .title-box {
+          .title {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+          }
+
+          p {
+            margin: 0;
+          }
+
+          .no-link {
+            color: $sub-title-color;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
