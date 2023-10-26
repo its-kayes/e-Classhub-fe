@@ -17,18 +17,13 @@ export default function Setting() {
           <Box
             sx={{
               width: "100%",
-            }}
-          >
-            <PrimaryInfo />
-          </Box>
-
-          <Box
-            sx={{
-              width: "100%",
               marginTop: "40px",
               marginBottom: "20px",
             }}
           >
+            {/* Primary Info */}
+            <PrimaryInfo />
+
             {/* Language & Time */}
             <LanguageInfo />
 

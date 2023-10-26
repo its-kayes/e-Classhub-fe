@@ -44,7 +44,7 @@ $save-btn-color: #1c64f2;
 
     input {
       margin-top: 5px;
-      padding: 9px;
+      padding: 9px 20px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
       width: 100%;
@@ -257,10 +257,6 @@ $save-btn-color: #1c64f2;
       .header-box {
         display: flex;
         align-items: center;
-
-        .icon {
-          margin-right: 20px;
-        }
 
         .title-box {
           .title {
