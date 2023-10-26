@@ -13,6 +13,7 @@ import "./Style.scss";
 import { UserImage } from "../../importer/importer";
 import { Divider } from "@mui/material";
 import GeneralInfo from "../../elements/components/GeneralInfo";
+import PasswordInfo from "../../elements/components/PasswordInfo";
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -243,6 +244,9 @@ export default function Setting() {
 
             {/* General Info */}
             <GeneralInfo />
+
+            {/* Password */}
+            <PasswordInfo />
           </Box>
         </Grid>
 

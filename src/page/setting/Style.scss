@@ -161,3 +161,51 @@ $save-btn-color: #1c64f2;
     @extend %save-btn;
   }
 }
+
+.password-info-section {
+  .input-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 4%;
+    .title {
+      color: $title-color;
+      margin: 0;
+      padding-bottom: 5px;
+    }
+
+    input {
+      margin-bottom: 15px;
+      padding: 9px 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      width: 100%;
+      background-color: #f9fafb;
+    }
+  }
+
+  .password-requirements-box {
+    color: #6b7280;
+    p {
+      margin: 0;
+    }
+
+    ul {
+      li {
+        // list-style-type: none;
+        font-size: 13px;
+      }
+    }
+
+    .title {
+      color: $title-color;
+      margin: 0;
+      margin-top: 15px;
+      padding-bottom: 5px;
+    }
+  }
+
+  .save-btn {
+    @extend %save-btn;
+  }
+}
