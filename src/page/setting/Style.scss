@@ -209,3 +209,38 @@ $save-btn-color: #1c64f2;
     @extend %save-btn;
   }
 }
+
+.sessions-info-section {
+  .account-box {
+    .per-account-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px, 0px, 16px, 0px;
+
+      .header-box {
+        display: flex;
+        align-items: center;
+
+        .icon {
+          margin-right: 20px;
+        }
+
+        .title-box {
+          p {
+            margin: 0;
+          }
+
+          .no-link {
+            color: $sub-title-color;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .save-btn {
+    @extend %save-btn;
+  }
+}

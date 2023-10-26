@@ -14,6 +14,7 @@ import { UserImage } from "../../importer/importer";
 import { Divider } from "@mui/material";
 import GeneralInfo from "../../elements/components/GeneralInfo";
 import PasswordInfo from "../../elements/components/PasswordInfo";
+import SessionsInfo from "../../elements/components/SessionsInfo";
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -247,6 +248,9 @@ export default function Setting() {
 
             {/* Password */}
             <PasswordInfo />
+
+            {/* Sessions */}
+            <SessionsInfo />
           </Box>
         </Grid>
 

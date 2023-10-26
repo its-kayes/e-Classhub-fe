@@ -7,7 +7,7 @@ export default function PasswordInfo() {
         style={{
           fontSize: "20px",
           fontWeight: "bold",
-          marginBottom: "20px",
+          marginBottom: "15px",
           marginTop: "50px",
         }}
       >
