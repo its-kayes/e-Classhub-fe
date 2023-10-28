@@ -371,7 +371,6 @@ export default function Controller() {
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Outlet />
-        {/* <ClassList /> */}
       </Box>
     </Box>
   );

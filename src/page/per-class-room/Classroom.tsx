@@ -5,7 +5,7 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import "./Style.scss";
+import "../controller/Style.scss";
 import { PostAnnouncementImage, UserImage } from "../../importer/importer";
 
 const buttons = [
@@ -38,7 +38,7 @@ const buttons = [
   </Button>,
 ];
 
-export default function ClassList() {
+export default function Classroom() {
   return (
     <Box>
       <Box
