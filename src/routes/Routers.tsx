@@ -4,7 +4,7 @@ import Signup from "../page/auth/Signup";
 import Home from "../page/home/Home";
 import Controller from "../page/controller/Controller";
 import Setting from "../page/setting/Setting";
-// import Classroom from "../page/per-class-room/Classroom";
+import Classroom from "../page/per-class-room/Classroom";
 import Classes from "../page/classes/Classes";
 
 /* All of Routers */
@@ -20,6 +20,10 @@ const routers = createBrowserRouter([
       {
         path: "/classes/",
         element: <Classes />,
+      },
+      {
+        path: "/classes/:room",
+        element: <Classroom />,
       },
       {
         path: "/classes/setting",

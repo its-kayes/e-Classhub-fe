@@ -14,6 +14,10 @@ const buttons = [
     sx={{
       textTransform: "none",
       color: "black",
+      "&:active": {
+        backgroundColor: "#1C64F2",
+        color: "white",
+      },
     }}
   >
     Stream
@@ -23,6 +27,10 @@ const buttons = [
     sx={{
       textTransform: "none",
       color: "black",
+      "&:active": {
+        backgroundColor: "#1C64F2",
+        color: "white",
+      },
     }}
   >
     Classwork
@@ -32,9 +40,52 @@ const buttons = [
     sx={{
       textTransform: "none",
       color: "black",
+      "&:active": {
+        backgroundColor: "#1C64F2",
+        color: "white",
+      },
     }}
   >
     People
+  </Button>,
+  <Button
+    key="People"
+    sx={{
+      textTransform: "none",
+      color: "black",
+      "&:active": {
+        backgroundColor: "#1C64F2",
+        color: "white",
+      },
+    }}
+  >
+    Chat with Mentor
+  </Button>,
+  <Button
+    key="People"
+    sx={{
+      textTransform: "none",
+      color: "black",
+      "&:active": {
+        backgroundColor: "#1C64F2",
+        color: "white",
+      },
+    }}
+  >
+    Group Chat
+  </Button>,
+  <Button
+    key="People"
+    sx={{
+      textTransform: "none",
+      color: "black",
+      "&:active": {
+        backgroundColor: "#1C64F2",
+        color: "white",
+      },
+    }}
+  >
+    Meet now
   </Button>,
 ];
 

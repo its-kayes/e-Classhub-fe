@@ -221,7 +221,6 @@ export default function Controller() {
                     alt=""
                   />
                 </Box>
-                B
               </Box>
             </Box>
           </Box>
