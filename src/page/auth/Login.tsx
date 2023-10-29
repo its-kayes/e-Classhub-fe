@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Style.scss";
 
 export default function Login() {
@@ -13,9 +14,12 @@ export default function Login() {
       <div className="login-form">
         <section className="login-form-box">
           <h1 className="title"> Welcome Back 👋🏻</h1>
+
           <p className="sub-title">
-            {" "}
-            No Account Yet ? <span> Sign Up </span>{" "}
+            No Account Yet ?
+            <Link to="/sign-up">
+              <span> Sign Up </span>
+            </Link>
           </p>
 
           <form action="">

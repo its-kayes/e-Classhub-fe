@@ -11,7 +11,7 @@ import NotificationsInfo from "../../elements/components/NotificationsInfo";
 
 export default function Setting() {
   return (
-    <Box sx={{ flexGrow: 1, width: "100%" }}>
+    <Box sx={{ flexGrow: 1, width: "100%", fontSize: "14px" }}>
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <Box

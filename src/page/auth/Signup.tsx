@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import RadioButtonsGroup from "../../elements/btn/RadioButtonsGroup";
 import "./Style.scss";
 
@@ -15,8 +16,10 @@ export default function Signup() {
         <section className="login-form-box">
           <h1 className="title"> Welcome Back 👋🏻</h1>
           <p className="sub-title">
-            {" "}
-            Already have an account ?<span> Login </span>{" "}
+            Already have an account ?{" "}
+            <Link to="/sign-in">
+              <span> Login </span>
+            </Link>
           </p>
 
           <form action="">
