@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./Style.scss";
 import { useSingInMutation } from "../../store/service/userApi";
 import { FormEvent } from "react";
-import toast from "react-hot-toast";
+import { IResponse, catchResponse } from "../../utils/catchResponse";
 
 export default function Login() {
   const [userApi] = useSingInMutation();
@@ -20,14 +20,7 @@ export default function Login() {
       password,
     });
 
-    if ("data" in result && result.data.success) {
-      toast.success(result.data.message);
-    } else if ("error" in result && "data" in result.error) {
-      const errorData = result.error.data as { message: string };
-      toast.error(errorData.message);
-    } else {
-      toast.error("An error occurred while logging in.");
-    }
+    return catchResponse(result as IResponse);
   };
 
   return (
