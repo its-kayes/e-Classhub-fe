@@ -1,7 +1,35 @@
 import { Link } from "react-router-dom";
 import "./Style.scss";
+import { useSingInMutation } from "../../store/service/userApi";
+import { FormEvent } from "react";
+import toast from "react-hot-toast";
 
 export default function Login() {
+  const [userApi] = useSingInMutation();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+
+    const password = (form.querySelector("#password") as HTMLInputElement)
+      ?.value;
+    const email = (form.querySelector("#email") as HTMLInputElement)?.value;
+
+    const result = await userApi({
+      email,
+      password,
+    });
+
+    if ("data" in result && result.data.success) {
+      toast.success(result.data.message);
+    } else if ("error" in result && "data" in result.error) {
+      const errorData = result.error.data as { message: string };
+      toast.error(errorData.message);
+    } else {
+      toast.error("An error occurred while logging in.");
+    }
+  };
+
   return (
     <section className="login-section">
       <div className="video-tutorial">
@@ -22,7 +50,7 @@ export default function Login() {
             </Link>
           </p>
 
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className="inp">
               <label htmlFor="email">Email</label>
               <input
@@ -30,6 +58,7 @@ export default function Login() {
                 type="email"
                 id="email"
                 placeholder="Enter your email"
+                name="email"
               />
             </div>
 
@@ -40,6 +69,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 placeholder="*********"
+                name="password"
               />
             </div>
 
