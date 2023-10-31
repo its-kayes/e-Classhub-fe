@@ -20,7 +20,9 @@ export default function Login() {
       password,
     });
 
-    return catchResponse(result as IResponse);
+    catchResponse(result as IResponse);
+
+    return;
   };
 
   return (
