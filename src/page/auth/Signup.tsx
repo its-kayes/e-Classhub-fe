@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import RadioButtonsGroup from "../../elements/btn/RadioButtonsGroup";
 import "./Style.scss";
 import { FormEvent, useState } from "react";
+import { IResponse, catchResponse } from "../../utils/catchResponse";
+import { useSignUpMutation } from "../../store/service/userApi";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const [type, setType] = useState<string>("student");
+  const [gender, setGender] = useState<string>("male");
+
+  const [userApi] = useSignUpMutation();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -18,17 +24,46 @@ export default function Signup() {
       form.querySelector("#confirm-password") as HTMLInputElement
     )?.value;
 
-    console.log(password, email, confirmPassword, name, type);
+    if (password !== confirmPassword) {
+      return toast.error("Confirm Password does not match!");
+    }
 
-    // const result = await userApi({
-    //   email,
-    //   password,
-    // });
+    // return console.log(password, email, confirmPassword, name, type, gender);
 
-    // catchResponse(result as IResponse);
+    const result = await userApi({
+      password,
+      email,
+      name,
+      type,
+      gender,
+    });
 
-    return;
+    catchResponse(result as IResponse);
+
+    return form.reset();
   };
+
+  const whoWeAreFields = [
+    {
+      label: "Student",
+      value: "student",
+    },
+    {
+      label: "Mentor",
+      value: "mentor",
+    },
+  ];
+
+  const genderFields = [
+    {
+      label: "Male",
+      value: "male",
+    },
+    {
+      label: "Female",
+      value: "female",
+    },
+  ];
   // setType("student")
   return (
     <section className="login-section">
@@ -94,7 +129,27 @@ export default function Signup() {
               />
             </div>
 
-            <RadioButtonsGroup title="Who you are ? 🐥" state={setType} />
+            <div>
+              <RadioButtonsGroup
+                title="Gender ? 🫦"
+                state={setGender}
+                fields={genderFields}
+              />
+            </div>
+
+            <br
+              style={{
+                paddingTop: "5px",
+              }}
+            />
+
+            <div>
+              <RadioButtonsGroup
+                title="Who you are ? 🐥"
+                state={setType}
+                fields={whoWeAreFields}
+              />
+            </div>
 
             <div className="login-feature-box">
               <div className="remember-me-box">

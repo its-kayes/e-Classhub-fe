@@ -6,12 +6,19 @@ import FormLabel from "@mui/material/FormLabel";
 
 type StateSetter = (value: string) => void;
 
+type IFields = {
+  label: string;
+  value: string;
+}[];
+
 export default function RadioButtonsGroup({
   title,
   state,
+  fields,
 }: {
   title: string;
   state: StateSetter;
+  fields: IFields;
 }) {
   const handleClick = (value: string) => {
     state(value);
@@ -25,27 +32,14 @@ export default function RadioButtonsGroup({
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
       >
-        <FormControlLabel
-          value="student"
-          onClick={() => handleClick("student")}
-          control={<Radio />}
-          label="Student"
-          checked
-        />
-
-        <FormControlLabel
-          value="mentor"
-          onClick={() => handleClick("mentor")}
-          control={<Radio />}
-          label="Mentor"
-        />
-        {/* <FormControlLabel value="other" control={<Radio />} label="Other" /> */}
-        {/* <FormControlLabel
-          value="disabled"
-          disabled
-          control={<Radio />}
-          label="other"
-        /> */}
+        {fields.map((item) => (
+          <FormControlLabel
+            value={item.value}
+            onClick={() => handleClick(item.value)}
+            control={<Radio />}
+            label={item.label}
+          />
+        ))}
       </RadioGroup>
     </FormControl>
   );

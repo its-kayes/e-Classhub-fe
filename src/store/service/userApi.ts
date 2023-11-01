@@ -28,4 +28,4 @@ const userApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useSingInMutation } = userApi;
+export const { useSingInMutation, useSignUpMutation } = userApi;
