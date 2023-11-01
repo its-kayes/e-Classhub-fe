@@ -1,8 +1,35 @@
 import { Link } from "react-router-dom";
 import RadioButtonsGroup from "../../elements/btn/RadioButtonsGroup";
 import "./Style.scss";
+import { FormEvent, useState } from "react";
 
 export default function Signup() {
+  const [type, setType] = useState<string>("student");
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+
+    const password = (form.querySelector("#password") as HTMLInputElement)
+      ?.value;
+    const email = (form.querySelector("#email") as HTMLInputElement)?.value;
+    const name = (form.querySelector("#name") as HTMLInputElement)?.value;
+    const confirmPassword = (
+      form.querySelector("#confirm-password") as HTMLInputElement
+    )?.value;
+
+    console.log(password, email, confirmPassword, name, type);
+
+    // const result = await userApi({
+    //   email,
+    //   password,
+    // });
+
+    // catchResponse(result as IResponse);
+
+    return;
+  };
+  // setType("student")
   return (
     <section className="login-section">
       <div className="video-tutorial">
@@ -22,7 +49,7 @@ export default function Signup() {
             </Link>
           </p>
 
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className="inp">
               <label htmlFor="email">Your Full Name</label>
               <input
@@ -30,6 +57,7 @@ export default function Signup() {
                 type="text"
                 id="name"
                 placeholder="Enter your full name"
+                name="name"
               />
             </div>
 
@@ -40,6 +68,7 @@ export default function Signup() {
                 type="email"
                 id="email"
                 placeholder="Enter your email"
+                name="email"
               />
             </div>
 
@@ -50,6 +79,7 @@ export default function Signup() {
                 type="password"
                 id="password"
                 placeholder="*********"
+                name="password"
               />
             </div>
 
@@ -60,10 +90,11 @@ export default function Signup() {
                 type="password"
                 id="confirm-password"
                 placeholder="*********"
+                name="confirm-password"
               />
             </div>
 
-            <RadioButtonsGroup title="Who you are ? 🐥" />
+            <RadioButtonsGroup title="Who you are ? 🐥" state={setType} />
 
             <div className="login-feature-box">
               <div className="remember-me-box">

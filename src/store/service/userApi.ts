@@ -13,6 +13,17 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    signUp: build.mutation({
+      query: (payload) => ({
+        url: "/user/sign-up",
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
   overrideExisting: false,
 });
