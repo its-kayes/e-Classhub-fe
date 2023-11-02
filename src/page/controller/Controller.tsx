@@ -26,6 +26,8 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link, Outlet } from "react-router-dom";
 import { IUserInfo } from "../../interface/index.global";
 
+import Modal from "@mui/material/Modal";
+
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -97,7 +99,23 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+const CreateStyle = {
+  position: "absolute" as const,
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 export default function Controller() {
+  const [openCreateModal, setOpenCreateModal] = React.useState(false);
+  const handleCreateModalOpen = () => setOpenCreateModal(true);
+  const handleCreateModalClose = () => setOpenCreateModal(false);
+
   const [userInfo, setUserInfo] = React.useState<IUserInfo>({} as IUserInfo);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -208,6 +226,7 @@ export default function Controller() {
                       borderRadius: 2,
                       color: "#1C64F2",
                     }}
+                    onClick={handleCreateModalOpen}
                   >
                     Create Classroom
                   </Button>
@@ -396,6 +415,26 @@ export default function Controller() {
         <DrawerHeader />
         <Outlet />
       </Box>
+
+      <Modal
+        open={openCreateModal}
+        onClose={handleCreateModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={CreateStyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Create Classroom
+          </Typography>
+          <input type="text" placeholder="Class Name" />
+          <input type="text" placeholder="Short Title" />
+          <input type="text" placeholder="email" value={userInfo.email} />
+          <input type="text" placeholder="Mentor Name" value={userInfo.name} />
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
     </Box>
   );
 }
