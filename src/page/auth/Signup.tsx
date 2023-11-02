@@ -131,7 +131,7 @@ export default function Signup() {
 
             <div>
               <RadioButtonsGroup
-                title="Gender ? 🫦"
+                title="Gender ? 🤷"
                 state={setGender}
                 fields={genderFields}
               />

@@ -24,6 +24,7 @@ import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import Button from "@mui/material/Button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link, Outlet } from "react-router-dom";
+import { IUserInfo } from "../../interface/index.global";
 
 const drawerWidth = 240;
 
@@ -97,6 +98,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Controller() {
+  const [userInfo, setUserInfo] = React.useState<IUserInfo>({} as IUserInfo);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -107,6 +109,12 @@ export default function Controller() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  React.useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem("userInfo") || "{}"));
+  }, []);
+
+  console.log(userInfo);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -189,19 +197,36 @@ export default function Controller() {
                   display: "flex",
                 }}
               >
-                <Button
-                  variant="outlined"
-                  startIcon={<AddOutlinedIcon />}
-                  sx={{
-                    textTransform: "none",
-                    mr: 5,
-                    fontWeight: "bold",
-                    borderRadius: 2,
-                    color: "#1C64F2",
-                  }}
-                >
-                  Create or join classroom
-                </Button>
+                {userInfo.type === "mentor" ? (
+                  <Button
+                    variant="outlined"
+                    startIcon={<AddOutlinedIcon />}
+                    sx={{
+                      textTransform: "none",
+                      mr: 5,
+                      fontWeight: "bold",
+                      borderRadius: 2,
+                      color: "#1C64F2",
+                    }}
+                  >
+                    Create Classroom
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outlined"
+                    startIcon={<AddOutlinedIcon />}
+                    sx={{
+                      textTransform: "none",
+                      mr: 5,
+                      fontWeight: "bold",
+                      borderRadius: 2,
+                      color: "#1C64F2",
+                    }}
+                  >
+                    Join Classroom
+                  </Button>
+                )}
+
                 <Box
                   sx={{
                     width: 40,

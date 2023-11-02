@@ -20,7 +20,14 @@ export default function Login() {
       password,
     });
 
-    catchResponse(result as IResponse);
+    const response = catchResponse(result as IResponse);
+
+    //TODO: Update & Optimized those code
+    localStorage.setItem("userInfo", JSON.stringify(response));
+
+    if (response) {
+      window.location.href = "/classes";
+    }
 
     return;
   };
