@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import "./Style.scss";
 import { useSingInMutation } from "../../store/service/userApi";
 import { FormEvent } from "react";
-import { IResponse, catchResponse } from "../../utils/catchResponse";
+import {
+  IApiResponse,
+  IResponse,
+  catchResponse,
+} from "../../utils/catchResponse";
 
 export default function Login() {
   const [singIn] = useSingInMutation();
@@ -20,16 +24,16 @@ export default function Login() {
       password,
     });
 
-    const response = catchResponse(result as IResponse);
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    console.log(response);
 
     //TODO: Update & Optimized those code
     localStorage.setItem("userInfo", JSON.stringify(response));
 
-    if (response) {
-      window.location.href = "/classes";
-    }
+    if (response.success === false) return;
 
-    return;
+    window.location.href = "/classes";
   };
 
   return (

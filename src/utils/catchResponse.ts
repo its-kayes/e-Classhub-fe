@@ -31,7 +31,7 @@ interface ErrorResponse {
 export const catchResponse = (result: SuccessResponse | ErrorResponse) => {
   if ("data" in result && result.data.success) {
     toast.success(result.data.message);
-    return result.data.data;
+    return result.data.data; // don't change return type
   } else if ("error" in result && "data" in result.error) {
     const errorData = result.error.data as {
       success: boolean;
@@ -56,3 +56,19 @@ export const catchResponse = (result: SuccessResponse | ErrorResponse) => {
 };
 
 export type IResponse = SuccessResponse | ErrorResponse;
+
+export type IApiResponse = {
+  success: boolean;
+  message: string;
+  statusCode: number;
+  data?: unknown;
+  meta?: {
+    page: number;
+    limit: number;
+    total?: number;
+  };
+  errorMessages?: {
+    path: string;
+    message: string;
+  }[];
+};
