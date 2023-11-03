@@ -40,7 +40,10 @@ export default function Classes() {
     <div className="class-list-box">
       {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => ( */}
       {allClassroomList?.map((item) => (
-        <Link to={`/classes/classroom-${item}`}>
+        <Link
+          to={`/classes/${item.classCode.toLowerCase()}`}
+          key={item.classCode}
+        >
           <div className="per-class-box">
             <div className="header-box">
               <p className="title"> {item.className} </p>

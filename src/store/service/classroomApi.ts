@@ -23,9 +23,22 @@ const classroomApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Classroom"],
     }),
+    findClassroom: build.mutation({
+      query: (payload) => ({
+        url: `classroom/find/${payload.room}`,
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["Classroom"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useCreateClassroomMutation, useClassroomListMutation } =
-  classroomApi;
+export const {
+  useCreateClassroomMutation,
+  useClassroomListMutation,
+  useFindClassroomMutation,
+} = classroomApi;

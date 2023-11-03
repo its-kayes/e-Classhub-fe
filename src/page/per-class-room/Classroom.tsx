@@ -3,10 +3,14 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
-import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import "../controller/Style.scss";
 import { PostAnnouncementImage, UserImage } from "../../importer/importer";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { IResponse, catchResponse } from "../../utils/catchResponse";
+import { useFindClassroomMutation } from "../../store/service/classroomApi";
+import { IClassroom } from "../../interface/index.global";
 
 const buttons = [
   <Button
@@ -90,6 +94,31 @@ const buttons = [
 ];
 
 export default function Classroom() {
+  const [classInfo, setClassInfo] = useState<IClassroom>({} as IClassroom);
+  const { room } = useParams();
+  const [findClassroom] = useFindClassroomMutation();
+
+  useEffect(() => {
+    if (!room || room === null) return;
+
+    async function fetchData() {
+      // const userInfo: IUserInfo = JSON.parse(
+      //   localStorage.getItem("userInfo") || "{}"
+      // );
+
+      const result = await findClassroom({
+        room: room?.toUpperCase(),
+      });
+
+      const response = catchResponse(result as unknown as IResponse);
+      setClassInfo(response as IClassroom);
+    }
+
+    fetchData();
+  }, [findClassroom, room]);
+
+  console.log(classInfo);
+
   return (
     <Box>
       <Box
@@ -107,43 +136,37 @@ export default function Classroom() {
       </Box>
 
       {/* Short Class details */}
-
       <Box
         sx={{
           width: "100%",
         }}
       >
-        {[1].map(() => (
-          <div className="class-half-details" style={{ marginBottom: "20px" }}>
-            <div className="header">
-              <p style={{ fontSize: "25px" }}> CSE 12th Final Project </p>
-              <p> Mr. Emrul Kayes </p>
-            </div>
-
-            <div className="icons-box">
-              <PermContactCalendarOutlinedIcon
-                sx={{
-                  fontSize: "1.5rem",
-                  marginRight: "15px",
-                }}
-              />
-
-              <FileCopyOutlinedIcon
-                sx={{
-                  fontSize: "1.5rem",
-                  marginRight: "15px",
-                }}
-              />
-
-              <MoreVertOutlinedIcon
-                sx={{
-                  fontSize: "1.5rem",
-                  marginRight: "15px",
-                }}
-              />
+        <div className="class-half-details" style={{ marginBottom: "20px" }}>
+          <div className="header">
+            <p style={{ fontSize: "25px" }}> {classInfo.className} </p>
+            <p> {classInfo.shortTitle} </p>
+            <div className="sub-title-box">
+              <p> {classInfo.mentorName} </p>
+              <p className="class-code"> {classInfo.classCode} </p>
             </div>
           </div>
-        ))}
+
+          <div className="icons-box">
+            <PermContactCalendarOutlinedIcon
+              sx={{
+                fontSize: "1.5rem",
+                marginRight: "15px",
+              }}
+            />
+
+            <MoreVertOutlinedIcon
+              sx={{
+                fontSize: "1.5rem",
+                marginRight: "15px",
+              }}
+            />
+          </div>
+        </div>
       </Box>
 
       {/* Class list */}
@@ -159,8 +182,8 @@ export default function Classroom() {
               />
             </div>
 
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-              <div className="post-short-details">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+              <div className="post-short-details" key={item}>
                 <img src={PostAnnouncementImage} alt="" />
                 <div>
                   <p>

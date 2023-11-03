@@ -6,10 +6,25 @@ $border-color: #ababab;
 
   background-color: #ff8b66;
   .header {
-    height: 70px;
+    min-height: 70px;
     color: white;
     padding-left: 20px;
+    padding-right: 20px;
     line-height: 15px;
+
+    .sub-title-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .class-code {
+        border: 1px solid #343541;
+        border-radius: 5px;
+        background-color: #343541;
+        color: white;
+        padding: 5px;
+      }
+    }
   }
 
   .icons-box {
