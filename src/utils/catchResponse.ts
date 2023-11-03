@@ -44,7 +44,7 @@ export const catchResponse = (result: SuccessResponse | ErrorResponse) => {
     };
     toast.error(
       `${errorData.message}! ${errorData.errorMessages
-        .map((error) => error.message)
+        ?.map((error) => error.message)
         .join(", ")}`
     );
 

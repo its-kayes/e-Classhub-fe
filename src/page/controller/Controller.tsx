@@ -131,12 +131,6 @@ export default function Controller() {
   }, []);
 
   const handleCreateClassroom = async () => {
-    console.log({
-      ...createClassInfo,
-      mentorEmail: userInfo.email,
-      mentorName: userInfo.name,
-    });
-
     const result = await classroomApi({
       ...createClassInfo,
       mentorEmail: userInfo.email,
