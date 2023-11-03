@@ -29,6 +29,8 @@ import { ICreateClassInfo, IUserInfo } from "../../interface/index.global";
 import { CreateClassInputStyle, CreateStyle } from "../../style";
 import { useCreateClassroomMutation } from "../../store/service/classroomApi";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
+import toast from "react-hot-toast";
+import { useJoinClassroomMutation } from "../../store/service/peopleApi";
 
 const drawerWidth = 240;
 
@@ -112,8 +114,10 @@ export default function Controller() {
       className: "",
       shortTitle: "",
     });
+  const [joinClassCode, setJoinClassCode] = React.useState<string>("");
 
   const [createClassroom] = useCreateClassroomMutation();
+  const [joinClassroom] = useJoinClassroomMutation();
 
   const handleCreateModalOpen = () => setOpenCreateModal(true);
   const handleCreateModalClose = () => setOpenCreateModal(false);
@@ -127,6 +131,7 @@ export default function Controller() {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo") || "{}"));
   }, []);
 
+  // Handle Create Classroom
   const handleCreateClassroom = async () => {
     const result = await createClassroom({
       ...createClassInfo,
@@ -139,7 +144,18 @@ export default function Controller() {
     handleCreateModalClose();
   };
 
-  const handleJoinClassroom = () => {
+  // Handle Join Classroom
+  const handleJoinClassroom = async () => {
+    const classCodeRegex = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
+    if (!classCodeRegex.test(joinClassCode)) return toast.error("Invalid Code");
+
+    const result = await joinClassroom({
+      classCode: joinClassCode,
+      requestEmail: userInfo.email,
+    });
+
+    catchResponse(result as IResponse);
+
     handleJoinModalClose();
   };
 
@@ -514,6 +530,9 @@ export default function Controller() {
             style={CreateClassInputStyle}
             type="text"
             placeholder="Class Code"
+            onChange={(e) => {
+              setJoinClassCode(e.target.value);
+            }}
           />
 
           <Button
