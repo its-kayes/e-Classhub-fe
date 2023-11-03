@@ -33,8 +33,21 @@ export const catchResponse = (result: SuccessResponse | ErrorResponse) => {
     toast.success(result.data.message);
     return result.data.data;
   } else if ("error" in result && "data" in result.error) {
-    const errorData = result.error.data as { message: string };
-    toast.error(errorData.message);
+    const errorData = result.error.data as {
+      success: boolean;
+      statusCode: number;
+      message: string;
+      errorMessages: {
+        path: string;
+        message: string;
+      }[];
+    };
+    toast.error(
+      `${errorData.message}! ${errorData.errorMessages
+        .map((error) => error.message)
+        .join(", ")}`
+    );
+
     return result.error.data;
   } else {
     toast.error("An error occurred while logging in.");

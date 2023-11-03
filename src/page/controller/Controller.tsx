@@ -27,6 +27,8 @@ import Modal from "@mui/material/Modal";
 import { Link, Outlet } from "react-router-dom";
 import { IUserInfo } from "../../interface/index.global";
 import { CreateClassInputStyle, CreateStyle } from "../../style";
+import { useCreateClassroomMutation } from "../../store/service/classroomApi";
+import { IResponse, catchResponse } from "../../utils/catchResponse";
 
 const drawerWidth = 240;
 
@@ -117,6 +119,8 @@ export default function Controller() {
       shortTitle: "",
     });
 
+  const [classroomApi] = useCreateClassroomMutation();
+
   const handleCreateModalOpen = () => setOpenCreateModal(true);
   const handleCreateModalClose = () => setOpenCreateModal(false);
   const handleDrawerOpen = () => setOpen(true);
@@ -126,12 +130,22 @@ export default function Controller() {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo") || "{}"));
   }, []);
 
-  const handleCreateClassroom = () => {
+  const handleCreateClassroom = async () => {
     console.log({
       ...createClassInfo,
       mentorEmail: userInfo.email,
       mentorName: userInfo.name,
     });
+
+    const result = await classroomApi({
+      ...createClassInfo,
+      mentorEmail: userInfo.email,
+      mentorName: userInfo.name,
+    });
+
+    catchResponse(result as IResponse);
+
+    handleCreateModalClose();
   };
 
   return (
