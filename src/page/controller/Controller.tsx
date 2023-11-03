@@ -23,10 +23,10 @@ import RecyclingOutlinedIcon from "@mui/icons-material/RecyclingOutlined";
 import AutoStoriesOutlinedIcon from "@mui/icons-material/AutoStoriesOutlined";
 import Button from "@mui/material/Button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import Modal from "@mui/material/Modal";
 import { Link, Outlet } from "react-router-dom";
 import { IUserInfo } from "../../interface/index.global";
-
-import Modal from "@mui/material/Modal";
+import { CreateClassInputStyle, CreateStyle } from "../../style";
 
 const drawerWidth = 240;
 
@@ -99,53 +99,40 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-const CreateStyle = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const CreateClassInputStyle = {
-  padding: "5px",
-  width: "100%",
-  marginBottom: "10px",
-  border: "1px solid black",
-  backgroundColor: "#F9FAFB",
-  borderRadius: "3px",
-  height: "35px",
-  paddingLeft: "15px",
-  color: "black",
-  fontWeight: "",
+type ICreateClassInfo = {
+  className: string;
+  shortTitle: string;
+  mentorEmail?: string;
+  mentorName?: string;
 };
 
 export default function Controller() {
+  const theme = useTheme();
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
+  const [userInfo, setUserInfo] = React.useState<IUserInfo>({} as IUserInfo);
+  const [open, setOpen] = React.useState(false);
+  const [createClassInfo, setCreateClassInfo] =
+    React.useState<ICreateClassInfo>({
+      className: "",
+      shortTitle: "",
+    });
+
   const handleCreateModalOpen = () => setOpenCreateModal(true);
   const handleCreateModalClose = () => setOpenCreateModal(false);
-
-  const [userInfo, setUserInfo] = React.useState<IUserInfo>({} as IUserInfo);
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
 
   React.useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("userInfo") || "{}"));
   }, []);
 
-  console.log(userInfo);
+  const handleCreateClassroom = () => {
+    console.log({
+      ...createClassInfo,
+      mentorEmail: userInfo.email,
+      mentorName: userInfo.name,
+    });
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -451,11 +438,23 @@ export default function Controller() {
             style={CreateClassInputStyle}
             type="text"
             placeholder="Class Name"
+            onChange={(e) => {
+              setCreateClassInfo({
+                ...createClassInfo,
+                shortTitle: e.target.value,
+              });
+            }}
           />
           <input
             style={CreateClassInputStyle}
             type="text"
             placeholder="Short Title"
+            onChange={(e) => {
+              setCreateClassInfo({
+                ...createClassInfo,
+                className: e.target.value,
+              });
+            }}
           />
           <input
             style={CreateClassInputStyle}
@@ -474,6 +473,7 @@ export default function Controller() {
             sx={{
               width: "100%",
             }}
+            onClick={handleCreateClassroom}
           >
             Create
           </Button>
