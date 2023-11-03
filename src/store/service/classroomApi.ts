@@ -13,11 +13,10 @@ const classroomApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Classroom"],
     }),
-    mentorClassroomList: build.mutation({
+    classroomList: build.mutation({
       query: (payload) => ({
-        url: `/classroom/mentor/list/${payload}`,
+        url: `/classroom/${payload.type}/list/${payload.email}`,
         method: "GET",
-        // params: ,
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -28,5 +27,5 @@ const classroomApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useCreateClassroomMutation, useMentorClassroomListMutation } =
+export const { useCreateClassroomMutation, useClassroomListMutation } =
   classroomApi;

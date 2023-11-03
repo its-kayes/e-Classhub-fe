@@ -3,30 +3,34 @@ import { UserImage } from "../../importer/importer";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useMentorClassroomListMutation } from "../../store/service/classroomApi";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
 import { IClassroom, IUserInfo } from "../../interface/index.global";
 import Spinner from "../../elements/spinner/Spinner";
+import { useClassroomListMutation } from "../../store/service/classroomApi";
 
 export default function Classes() {
-  const [classroomList, setClassroomList] = useState<IClassroom[]>([]);
-  const [mentorClassroomList, { isLoading }] = useMentorClassroomListMutation();
+  const [allClassroomList, setAllClassroomList] = useState<IClassroom[]>([]);
+  const [classroomList, { isLoading }] = useClassroomListMutation();
 
   useEffect(() => {
-    if (classroomList.length > 0) return;
+    if (allClassroomList.length > 0) return;
 
     async function fetchData() {
       const userInfo: IUserInfo = JSON.parse(
         localStorage.getItem("userInfo") || "{}"
       );
 
-      const result = await mentorClassroomList(userInfo.email);
+      const result = await classroomList({
+        email: userInfo.email,
+        type: userInfo.type,
+      });
+
       const response = catchResponse(result as unknown as IResponse);
-      setClassroomList(response as IClassroom[]);
+      setAllClassroomList(response as IClassroom[]);
     }
 
     fetchData();
-  }, [classroomList.length, mentorClassroomList]);
+  }, [allClassroomList.length, classroomList]);
 
   if (isLoading) {
     return <Spinner />;
@@ -35,7 +39,7 @@ export default function Classes() {
   return (
     <div className="class-list-box">
       {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((item) => ( */}
-      {classroomList.map((item) => (
+      {allClassroomList?.map((item) => (
         <Link to={`/classes/classroom-${item}`}>
           <div className="per-class-box">
             <div className="header-box">
