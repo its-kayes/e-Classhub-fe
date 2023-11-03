@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { useMentorClassroomListMutation } from "../../store/service/classroomApi";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
 import { IClassroom, IUserInfo } from "../../interface/index.global";
+import Spinner from "../../elements/spinner/Spinner";
 
 export default function Classes() {
   const [classroomList, setClassroomList] = useState<IClassroom[]>([]);
-  const [classroomApi] = useMentorClassroomListMutation();
+  const [mentorClassroomList, { isLoading }] = useMentorClassroomListMutation();
 
   useEffect(() => {
     if (classroomList.length > 0) return;
@@ -19,13 +20,17 @@ export default function Classes() {
         localStorage.getItem("userInfo") || "{}"
       );
 
-      const result = await classroomApi(userInfo.email);
+      const result = await mentorClassroomList(userInfo.email);
       const response = catchResponse(result as unknown as IResponse);
       setClassroomList(response as IClassroom[]);
     }
 
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="class-list-box">
