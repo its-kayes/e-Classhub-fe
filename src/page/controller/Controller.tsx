@@ -111,6 +111,19 @@ const CreateStyle = {
   p: 4,
 };
 
+const CreateClassInputStyle = {
+  padding: "5px",
+  width: "100%",
+  marginBottom: "10px",
+  border: "1px solid black",
+  backgroundColor: "#F9FAFB",
+  borderRadius: "3px",
+  height: "35px",
+  paddingLeft: "15px",
+  color: "black",
+  fontWeight: "",
+};
+
 export default function Controller() {
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
   const handleCreateModalOpen = () => setOpenCreateModal(true);
@@ -423,16 +436,47 @@ export default function Controller() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={CreateStyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            sx={{
+              mb: 2,
+            }}
+            component="h2"
+          >
             Create Classroom
           </Typography>
-          <input type="text" placeholder="Class Name" />
-          <input type="text" placeholder="Short Title" />
-          <input type="text" placeholder="email" value={userInfo.email} />
-          <input type="text" placeholder="Mentor Name" value={userInfo.name} />
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+
+          <input
+            style={CreateClassInputStyle}
+            type="text"
+            placeholder="Class Name"
+          />
+          <input
+            style={CreateClassInputStyle}
+            type="text"
+            placeholder="Short Title"
+          />
+          <input
+            style={CreateClassInputStyle}
+            type="text"
+            placeholder="email"
+            value={userInfo.email}
+          />
+          <input
+            style={CreateClassInputStyle}
+            type="text"
+            placeholder="Mentor Name"
+            value={userInfo.name}
+          />
+          <Button
+            variant="outlined"
+            sx={{
+              width: "100%",
+            }}
+          >
+            Create
+          </Button>
         </Box>
       </Modal>
     </Box>
