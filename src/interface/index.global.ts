@@ -11,3 +11,10 @@ export type IClassroom = {
   mentorName: string;
   shortTitle: string;
 };
+
+export type ICreateClassInfo = {
+  className: string;
+  shortTitle: string;
+  mentorEmail?: string;
+  mentorName?: string;
+};

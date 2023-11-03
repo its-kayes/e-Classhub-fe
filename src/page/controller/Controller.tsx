@@ -25,7 +25,7 @@ import Button from "@mui/material/Button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Modal from "@mui/material/Modal";
 import { Link, Outlet } from "react-router-dom";
-import { IUserInfo } from "../../interface/index.global";
+import { ICreateClassInfo, IUserInfo } from "../../interface/index.global";
 import { CreateClassInputStyle, CreateStyle } from "../../style";
 import { useCreateClassroomMutation } from "../../store/service/classroomApi";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
@@ -101,16 +101,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-type ICreateClassInfo = {
-  className: string;
-  shortTitle: string;
-  mentorEmail?: string;
-  mentorName?: string;
-};
-
 export default function Controller() {
   const theme = useTheme();
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
+  const [openJoinModal, setOpenJoinModal] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState<IUserInfo>({} as IUserInfo);
   const [open, setOpen] = React.useState(false);
   const [createClassInfo, setCreateClassInfo] =
@@ -123,6 +117,9 @@ export default function Controller() {
 
   const handleCreateModalOpen = () => setOpenCreateModal(true);
   const handleCreateModalClose = () => setOpenCreateModal(false);
+  const handleJoinModalOpen = () => setOpenJoinModal(true);
+  const handleJoinModalClose = () => setOpenJoinModal(false);
+
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
 
@@ -140,6 +137,10 @@ export default function Controller() {
     catchResponse(result as IResponse);
 
     handleCreateModalClose();
+  };
+
+  const handleJoinClassroom = () => {
+    handleJoinModalClose();
   };
 
   return (
@@ -249,6 +250,7 @@ export default function Controller() {
                       borderRadius: 2,
                       color: "#1C64F2",
                     }}
+                    onClick={handleJoinModalOpen}
                   >
                     Join Classroom
                   </Button>
@@ -424,6 +426,7 @@ export default function Controller() {
         <Outlet />
       </Box>
 
+      {/* <--------------------- Create Classroom Modal -------------------------> */}
       <Modal
         open={openCreateModal}
         onClose={handleCreateModalClose}
@@ -485,6 +488,70 @@ export default function Controller() {
           >
             Create
           </Button>
+        </Box>
+      </Modal>
+
+      {/* <--------------------- Join Classroom Modal -------------------------> */}
+      <Modal
+        open={openJoinModal}
+        onClose={handleJoinModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={CreateStyle}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            sx={{
+              mb: 2,
+            }}
+            component="h2"
+          >
+            Create Classroom
+          </Typography>
+
+          <input
+            style={CreateClassInputStyle}
+            type="text"
+            placeholder="Class Code"
+          />
+
+          <Button
+            variant="outlined"
+            sx={{
+              width: "100%",
+            }}
+            onClick={handleJoinClassroom}
+          >
+            Request to Join
+          </Button>
+
+          <Box>
+            <p
+              style={{
+                marginTop: 20,
+                fontWeight: "bold",
+                marginBottom: 0,
+              }}
+            >
+              To join a classroom with class code
+            </p>
+            <ul
+              style={{
+                marginTop: 4,
+              }}
+            >
+              <li> Use an authorized account. </li>
+              <li> Provide a valid class code. </li>
+              <li> Code Pattern XXXX-XXXX-XXXX. </li>
+              <li> Class code must be 14 character. </li>
+              <li>
+                {" "}
+                Once you request please wait until mentor approved your request!{" "}
+              </li>
+              <li> If you are blocked then you can't sent join request. </li>
+            </ul>
+          </Box>
         </Box>
       </Modal>
     </Box>
