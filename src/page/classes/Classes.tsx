@@ -26,7 +26,7 @@ export default function Classes() {
     }
 
     fetchData();
-  }, []);
+  }, [classroomList.length, mentorClassroomList]);
 
   if (isLoading) {
     return <Spinner />;

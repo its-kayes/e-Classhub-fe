@@ -1,6 +1,6 @@
+import "./Style.scss";
 import { Link } from "react-router-dom";
 import RadioButtonsGroup from "../../elements/btn/RadioButtonsGroup";
-import "./Style.scss";
 import { FormEvent, useState } from "react";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
 import { useSignUpMutation } from "../../store/service/userApi";
@@ -10,7 +10,7 @@ export default function Signup() {
   const [type, setType] = useState<string>("student");
   const [gender, setGender] = useState<string>("male");
 
-  const [userApi] = useSignUpMutation();
+  const [signUp] = useSignUpMutation();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,9 +28,7 @@ export default function Signup() {
       return toast.error("Confirm Password does not match!");
     }
 
-    // return console.log(password, email, confirmPassword, name, type, gender);
-
-    const result = await userApi({
+    const result = await signUp({
       password,
       email,
       name,
@@ -64,7 +62,7 @@ export default function Signup() {
       value: "female",
     },
   ];
-  // setType("student")
+
   return (
     <section className="login-section">
       <div className="video-tutorial">

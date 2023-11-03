@@ -119,7 +119,7 @@ export default function Controller() {
       shortTitle: "",
     });
 
-  const [classroomApi] = useCreateClassroomMutation();
+  const [createClassroom] = useCreateClassroomMutation();
 
   const handleCreateModalOpen = () => setOpenCreateModal(true);
   const handleCreateModalClose = () => setOpenCreateModal(false);
@@ -131,7 +131,7 @@ export default function Controller() {
   }, []);
 
   const handleCreateClassroom = async () => {
-    const result = await classroomApi({
+    const result = await createClassroom({
       ...createClassInfo,
       mentorEmail: userInfo.email,
       mentorName: userInfo.name,

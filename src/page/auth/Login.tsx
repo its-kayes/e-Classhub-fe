@@ -5,7 +5,7 @@ import { FormEvent } from "react";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
 
 export default function Login() {
-  const [userApi] = useSingInMutation();
+  const [singIn] = useSingInMutation();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ export default function Login() {
       ?.value;
     const email = (form.querySelector("#email") as HTMLInputElement)?.value;
 
-    const result = await userApi({
+    const result = await singIn({
       email,
       password,
     });
