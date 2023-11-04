@@ -18,7 +18,7 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function PrimaryInfo() {
-  const { name } = useAppSelector((state) => state.local.userReducer);
+  const { name, title } = useAppSelector((state) => state.local.userReducer);
 
   return (
     <div className="primary-user-info-box">
@@ -41,7 +41,7 @@ export default function PrimaryInfo() {
               paddingTop: "5px",
             }}
           >
-            Software Engineer
+            {title || "Anonymous... 🦧"}
           </p>
         </div>
 
