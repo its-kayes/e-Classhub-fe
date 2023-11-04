@@ -1,7 +1,5 @@
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import "../controller/Style.scss";
@@ -11,87 +9,6 @@ import { useEffect, useState } from "react";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
 import { useFindClassroomMutation } from "../../store/service/classroomApi";
 import { IClassroom } from "../../interface/index.global";
-
-const buttons = [
-  <Button
-    key="Stream"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Stream
-  </Button>,
-  <Button
-    key="Classwork"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Classwork
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    People
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Chat with Mentor
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Group Chat
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Meet now
-  </Button>,
-];
 
 export default function Classroom() {
   const [classInfo, setClassInfo] = useState<IClassroom>({} as IClassroom);
@@ -121,20 +38,6 @@ export default function Classroom() {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "self-start",
-          marginBottom: "20px",
-          "& > *": {
-            m: 1,
-          },
-        }}
-      >
-        <ButtonGroup aria-label="medium button group">{buttons}</ButtonGroup>
-      </Box>
-
       {/* Short Class details */}
       <Box
         sx={{

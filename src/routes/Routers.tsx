@@ -6,6 +6,8 @@ import Controller from "../page/controller/Controller";
 import Setting from "../page/setting/Setting";
 import Classroom from "../page/per-class-room/Classroom";
 import Classes from "../page/classes/Classes";
+import RoomManager from "../page/per-class-room/RoomManager";
+import Members from "../page/per-class-room/Members";
 
 /* All of Routers */
 const routers = createBrowserRouter([
@@ -23,7 +25,17 @@ const routers = createBrowserRouter([
       },
       {
         path: "/classes/:room",
-        element: <Classroom />,
+        element: <RoomManager />,
+        children: [
+          {
+            path: "/classes/:room",
+            element: <Classroom />,
+          },
+          {
+            path: "/classes/:room/members",
+            element: <Members />,
+          },
+        ],
       },
       {
         path: "/classes/setting",

@@ -439,7 +439,13 @@ export default function Controller() {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Outlet />
+        <Box
+          sx={{
+            minHeight: "85vh",
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
 
       {/* <--------------------- Create Classroom Modal -------------------------> */}
