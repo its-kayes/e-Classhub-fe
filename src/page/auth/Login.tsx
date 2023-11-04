@@ -7,9 +7,12 @@ import {
   IResponse,
   catchResponse,
 } from "../../utils/catchResponse";
+import { useAppDispatch } from "../../store/app/hook";
+import { addUser } from "../../store/features/user/userSlice";
 
 export default function Login() {
   const [singIn] = useSingInMutation();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -26,12 +29,26 @@ export default function Login() {
 
     const response = catchResponse(result as IResponse) as IApiResponse;
 
-    console.log(response);
-
     //TODO: Update & Optimized those code
     localStorage.setItem("userInfo", JSON.stringify(response));
 
     if (response.success === false) return;
+
+    const responseData = response.data as {
+      email: string;
+      name: string;
+      id: string;
+      type: "student" | "mentor";
+    };
+
+    dispatch(
+      addUser({
+        email: responseData.email,
+        name: responseData.name,
+        id: responseData.id,
+        type: responseData.type,
+      })
+    );
 
     window.location.href = "/classes";
   };

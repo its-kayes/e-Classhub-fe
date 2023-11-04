@@ -3,34 +3,39 @@ import { UserImage } from "../../importer/importer";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { IResponse, catchResponse } from "../../utils/catchResponse";
-import { IClassroom, IUserInfo } from "../../interface/index.global";
+import {
+  IApiResponse,
+  IResponse,
+  catchResponse,
+} from "../../utils/catchResponse";
+import { IClassroom } from "../../interface/index.global";
 import Spinner from "../../elements/spinner/Spinner";
 import { useClassroomListMutation } from "../../store/service/classroomApi";
+import { useAppSelector } from "../../store/app/hook";
 
 export default function Classes() {
   const [allClassroomList, setAllClassroomList] = useState<IClassroom[]>([]);
   const [classroomList, { isLoading }] = useClassroomListMutation();
+  const { type, email } = useAppSelector((state) => state.local.userReducer);
 
   useEffect(() => {
     if (allClassroomList.length > 0) return;
 
     async function fetchData() {
-      const userInfo: IUserInfo = JSON.parse(
-        localStorage.getItem("userInfo") || "{}"
-      );
-
       const result = await classroomList({
-        email: userInfo.email,
-        type: userInfo.type,
+        email: email,
+        type: type,
       });
 
-      const response = catchResponse(result as unknown as IResponse);
-      setAllClassroomList(response as IClassroom[]);
+      const response = catchResponse(
+        result as unknown as IResponse
+      ) as IApiResponse;
+
+      setAllClassroomList(response.data as IClassroom[]);
     }
 
     fetchData();
-  }, [allClassroomList.length, classroomList]);
+  }, [allClassroomList.length, classroomList, email, type]);
 
   if (isLoading) {
     return <Spinner />;

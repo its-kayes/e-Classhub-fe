@@ -1,34 +1,27 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IUserInfo } from "../../../interface/index.global";
 
-interface UserInfo {
-  user: string; // Replace 'string' with the actual type of 'user'
-  // Add other properties as needed
-}
-
-interface UserState {
-  userInfo: UserInfo;
-}
-
-const initialState: UserState = {
-  userInfo: {
-    user: "", // Initialize 'user' with the appropriate default value
-  },
+const initialState: IUserInfo = {
+  email: "",
+  name: "",
+  type: "student",
+  id: "",
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addUser: (state, action: PayloadAction<UserInfo>) => {
-      state.userInfo = action.payload;
-    },
-    updateLoggedInUser: (state, action: PayloadAction<string>) => {
-      state.userInfo.user = action.payload;
+    addUser: (state, action: PayloadAction<IUserInfo>) => {
+      state.email = action.payload.email;
+      state.name = action.payload.name;
+      state.type = action.payload.type;
+      state.id = action.payload.id;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addUser, updateLoggedInUser } = userSlice.actions;
+export const { addUser } = userSlice.actions;
 
 export default userSlice.reducer;

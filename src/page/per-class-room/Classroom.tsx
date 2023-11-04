@@ -6,7 +6,11 @@ import "../controller/Style.scss";
 import { PostAnnouncementImage, UserImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { IResponse, catchResponse } from "../../utils/catchResponse";
+import {
+  IApiResponse,
+  IResponse,
+  catchResponse,
+} from "../../utils/catchResponse";
 import { useFindClassroomMutation } from "../../store/service/classroomApi";
 import { IClassroom } from "../../interface/index.global";
 
@@ -19,22 +23,19 @@ export default function Classroom() {
     if (!room || room === null) return;
 
     async function fetchData() {
-      // const userInfo: IUserInfo = JSON.parse(
-      //   localStorage.getItem("userInfo") || "{}"
-      // );
-
       const result = await findClassroom({
         room: room?.toUpperCase(),
       });
 
-      const response = catchResponse(result as unknown as IResponse);
-      setClassInfo(response as IClassroom);
+      const response = catchResponse(
+        result as unknown as IResponse
+      ) as IApiResponse;
+
+      setClassInfo(response.data as IClassroom);
     }
 
     fetchData();
   }, [findClassroom, room]);
-
-  console.log(classInfo);
 
   return (
     <Box>
