@@ -1,6 +1,41 @@
+import { Link } from "react-router-dom";
 import "./Style.scss";
+import { useSingInMutation } from "../../store/service/userApi";
+import { FormEvent } from "react";
+import {
+  IApiResponse,
+  IResponse,
+  catchResponse,
+} from "../../utils/catchResponse";
 
 export default function Login() {
+  const [singIn] = useSingInMutation();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+
+    const password = (form.querySelector("#password") as HTMLInputElement)
+      ?.value;
+    const email = (form.querySelector("#email") as HTMLInputElement)?.value;
+
+    const result = await singIn({
+      email,
+      password,
+    });
+
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    console.log(response);
+
+    //TODO: Update & Optimized those code
+    localStorage.setItem("userInfo", JSON.stringify(response));
+
+    if (response.success === false) return;
+
+    window.location.href = "/classes";
+  };
+
   return (
     <section className="login-section">
       <div className="video-tutorial">
@@ -13,12 +48,15 @@ export default function Login() {
       <div className="login-form">
         <section className="login-form-box">
           <h1 className="title"> Welcome Back 👋🏻</h1>
+
           <p className="sub-title">
-            {" "}
-            No Account Yet ? <span> Sign Up </span>{" "}
+            No Account Yet ?
+            <Link to="/sign-up">
+              <span> Sign Up </span>
+            </Link>
           </p>
 
-          <form action="">
+          <form onSubmit={handleSubmit}>
             <div className="inp">
               <label htmlFor="email">Email</label>
               <input
@@ -26,6 +64,7 @@ export default function Login() {
                 type="email"
                 id="email"
                 placeholder="Enter your email"
+                name="email"
               />
             </div>
 
@@ -36,6 +75,7 @@ export default function Login() {
                 type="password"
                 id="password"
                 placeholder="*********"
+                name="password"
               />
             </div>
 
