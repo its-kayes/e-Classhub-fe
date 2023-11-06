@@ -18,10 +18,14 @@ const userSlice = createSlice({
       state.type = action.payload.type;
       state.id = action.payload.id;
     },
+    updateNameTitle: (state, action: PayloadAction<IUserInfo>) => {
+      state.name = action.payload.name;
+      state.title = action.payload.title;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addUser } = userSlice.actions;
+export const { addUser, updateNameTitle } = userSlice.actions;
 
 export default userSlice.reducer;

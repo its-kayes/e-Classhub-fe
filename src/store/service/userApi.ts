@@ -34,6 +34,13 @@ const userApi = baseApi.injectEndpoints({
         },
       }),
       invalidatesTags: ["User"],
+      // onQueryStarted: async (_, { dispatch, queryFulfilled }) => {
+      //   const { data } = await queryFulfilled;
+      //   console.log(data);
+      //   // Assuming the result contains updated user information
+      //   const { name, title } = data as { name: string; title: string };
+      //   dispatch(updateNameTitle({ name, title }));
+      // },
     }),
   }),
   overrideExisting: false,

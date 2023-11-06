@@ -1,8 +1,8 @@
 export type IUserInfo = {
   id?: string;
-  name: string;
-  email: string;
-  type: "student" | "mentor";
+  name?: string;
+  email?: string;
+  type?: "student" | "mentor";
   isVerified?: boolean;
   gender?: "male" | "female";
   dob?: Date;
