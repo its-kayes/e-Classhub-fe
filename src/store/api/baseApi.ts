@@ -6,5 +6,5 @@ export const baseApi = createApi({
     baseUrl: `http://localhost:3000/api/v1`,
   }),
   endpoints: () => ({}),
-  tagTypes: ["User", "Classroom", "People"],
+  tagTypes: ["User", "Classroom", "People", "Tracker"],
 });
