@@ -80,10 +80,35 @@ export default function Classroom() {
           <Grid item xs={9}>
             <div className="announcement-writing-box">
               <img src={UserImage} alt="" />
-              <input
-                type="text"
-                placeholder="Announce something to your class"
-              />
+              <div>
+                <textarea
+                  placeholder="Announce something to your class"
+                  name=""
+                  id=""
+                  cols={30}
+                  rows={4}
+                ></textarea>
+
+                <label
+                  htmlFor="images"
+                  className="drop-container"
+                  id="dropcontainer"
+                >
+                  <span className="drop-title">
+                    Drop or Click here to upload files...
+                  </span>
+
+                  <input
+                    hidden
+                    type="file"
+                    id="images"
+                    accept="image/*"
+                    required
+                  />
+                </label>
+
+                <button className="announcement-btn"> Save </button>
+              </div>
             </div>
 
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
