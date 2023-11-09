@@ -66,32 +66,15 @@ $border-color: #ababab;
 .announcement-writing-box {
   border: 1px solid $border-color;
   border-radius: 10px 10px 10px 10px;
-  padding: 15px;
+  padding-left: 10px;
+  padding-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   display: flex;
 
-  img {
-    width: 50px;
-    height: 50px;
-    border: 1px solid $border-color;
-    border-radius: 50%;
-  }
-
-  div {
+  form {
     width: 100%;
-    padding-top: 20px;
-
-    // input {
-    //   border: none;
-    //   width: 100%;
-    //   padding: 0px 15px 0px 15px;
-    //   margin-left: 10px;
-    //   margin-right: 10px;
-    //   color: #667085;
-    // }
-
-    // input:focus {
-    //   outline: none;
-    // }
+    padding-top: 5px;
 
     textarea {
       border: none;
@@ -101,6 +84,10 @@ $border-color: #ababab;
       margin-right: 10px;
       font-size: 16px;
       color: black;
+      border: 2px dashed #555;
+      border-radius: 10px;
+      padding-top: 10px;
+      min-height: 150px;
     }
 
     textarea:focus {
@@ -115,12 +102,15 @@ $border-color: #ababab;
       justify-content: center;
       align-items: center;
       height: 50px;
-      padding: 20px;
+      // padding: 20px;
       border-radius: 10px;
       border: 2px dashed #555;
       color: #444;
       cursor: pointer;
       transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 100%;
     }
 
     .drop-container:hover {
@@ -142,12 +132,13 @@ $border-color: #ababab;
     .announcement-btn {
       background-color: #1c64f2;
       color: white;
+      font-weight: bold;
       border: none;
       border-radius: 5px;
       padding: 10px;
       margin-top: 10px;
-      // margin-left: 10px;
-      // margin-right: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
       width: 100%;
     }
   }

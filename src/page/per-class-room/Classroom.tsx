@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import "../controller/Style.scss";
-import { PostAnnouncementImage, UserImage } from "../../importer/importer";
+import { PostAnnouncementImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -79,8 +79,7 @@ export default function Classroom() {
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <div className="announcement-writing-box">
-              <img src={UserImage} alt="" />
-              <div>
+              <form>
                 <textarea
                   placeholder="Announce something to your class"
                   name=""
@@ -107,8 +106,19 @@ export default function Classroom() {
                   />
                 </label>
 
-                <button className="announcement-btn"> Save </button>
-              </div>
+                <button className="announcement-btn">
+                  {" "}
+                  <span
+                    style={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span> Announcement </span>
+                  </span>{" "}
+                </button>
+              </form>
             </div>
 
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
