@@ -12,12 +12,17 @@ import {
   catchResponse,
 } from "../../utils/catchResponse";
 import { useFindClassroomMutation } from "../../store/service/classroomApi";
-import { IClassroom } from "../../interface/index.global";
+import { IAnnouncement, IClassroom } from "../../interface/index.global";
+import { useGetAnnouncementMutation } from "../../store/service/announcement";
+import { useAppSelector } from "../../store/app/hook";
 
 export default function Classroom() {
   const [classInfo, setClassInfo] = useState<IClassroom>({} as IClassroom);
+  const [announcement, setAnnouncement] = useState<IAnnouncement[]>([]);
   const { room } = useParams();
+  const { email } = useAppSelector((state) => state.local.userReducer);
   const [findClassroom] = useFindClassroomMutation();
+  const [getAnnouncement] = useGetAnnouncementMutation();
 
   useEffect(() => {
     if (!room || room === null) return;
@@ -27,15 +32,27 @@ export default function Classroom() {
         room: room?.toUpperCase(),
       });
 
+      const announcements = await getAnnouncement({
+        classCode: room?.toUpperCase(),
+        email,
+      });
+
+      const announcementsResponse = catchResponse(
+        announcements as unknown as IResponse
+      ) as IApiResponse;
+
       const response = catchResponse(
         result as unknown as IResponse
       ) as IApiResponse;
 
       setClassInfo(response.data as IClassroom);
+      setAnnouncement(announcementsResponse.data as IAnnouncement[]);
     }
 
     fetchData();
-  }, [findClassroom, room]);
+  }, [email, findClassroom, getAnnouncement, room]);
+
+  console.log(announcement);
 
   return (
     <Box>
@@ -121,16 +138,12 @@ export default function Classroom() {
               </form>
             </div>
 
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-              <div className="post-short-details" key={item}>
+            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => ( */}
+            {announcement?.map((item) => (
+              <div className="post-short-details" key={item._id}>
                 <img src={PostAnnouncementImage} alt="" />
                 <div>
-                  <p>
-                    {" "}
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Cupiditate laudantium laboriosam eius? Esse, in laborum
-                    laboriosam eius? Esse, in laborum!
-                  </p>
+                  <p>{item.description}</p>
                 </div>
                 <MoreVertOutlinedIcon />
               </div>

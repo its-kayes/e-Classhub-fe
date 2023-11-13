@@ -95,3 +95,13 @@ export type IOs = {
 export type ICpu = {
   architecture: string;
 };
+
+export type IAnnouncement = {
+  description: string;
+  materials: {
+    url: string;
+    _id: string;
+  }[];
+  date: string;
+  _id?: string;
+};
