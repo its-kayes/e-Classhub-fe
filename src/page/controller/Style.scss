@@ -229,6 +229,10 @@ $border-color: #ababab;
         .name {
           font-weight: bold;
           color: #111;
+          text-align: center;
+          max-height: fit-content;
+          padding-top: 5px;
+          padding-bottom: 5px;
         }
 
         p {

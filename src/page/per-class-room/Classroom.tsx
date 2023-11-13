@@ -56,6 +56,42 @@ export default function Classroom() {
 
   console.log(announcement);
 
+  // Get the file name from the url
+  const fileName = (url: string) => {
+    const parts = url.split("/");
+    const fileNamePart = parts[3];
+
+    // Remove "ux28-test-7no5_" from the fileNamePart
+    const cleanedFileName = fileNamePart.replace("ux28-test-7no5_", "");
+
+    // Capitalize the first letter of the remaining string
+    const finalFileName =
+      cleanedFileName.charAt(0).toUpperCase() + cleanedFileName.slice(1);
+
+    return finalFileName;
+  };
+
+  // Download the file
+  const handleDownload = async (url: string, fileName: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      // Create a link element
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+
+      // Trigger the download automatically
+      link.click();
+
+      // Clean up
+      window.URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  };
+
   return (
     <Box>
       {/* Short Class details */}
@@ -159,21 +195,30 @@ export default function Classroom() {
                 </div>
 
                 <div className="martial-section">
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                    <div className="martial-box">
+                  {item.materials?.map((material) => (
+                    <div key={material._id} className="martial-box">
                       <div className="img-section">
                         <img src={PostAnnouncementImage} alt="" />
                       </div>
                       <div className="title-section">
-                        <p className="name"> File Name </p>
-                        <p> PDF </p>
+                        <p className="name"> {fileName(material.url)} </p>
+                        <p> {material?.url?.split(".")[4]?.toUpperCase()} </p>
                       </div>
                       <div className="action-section">
-                        <CloudDownloadOutlinedIcon />
+                        <CloudDownloadOutlinedIcon
+                          onClick={() =>
+                            handleDownload(
+                              material.url as string,
+                              fileName(material.url) as string
+                            )
+                          }
+                        />
+
                         <LaunchOutlinedIcon
                           sx={{
                             fontSize: "1.4rem",
                           }}
+                          onClick={() => window.open(material.url)}
                         />
                       </div>
                     </div>
