@@ -62,7 +62,9 @@ export default function Classroom() {
     const fileNamePart = parts[3];
 
     // Remove "ux28-test-7no5_" from the fileNamePart
-    const cleanedFileName = fileNamePart.replace("ux28-test-7no5_", "");
+    const cleanedFileName = fileNamePart
+      .replace(`${room}_`, "")
+      .replace(/_/g, " ");
 
     // Capitalize the first letter of the remaining string
     const finalFileName =
