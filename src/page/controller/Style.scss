@@ -3,7 +3,7 @@ $border-color: #ababab;
 .class-half-details {
   border: 1px solid $border-color;
   border-radius: 10px 10px 10px 10px;
-  min-width: 92vw;
+  min-width: 90vw;
 
   background-color: #ff8b66;
   .header {
@@ -182,6 +182,70 @@ $border-color: #ababab;
           margin: 0;
           padding: 0;
         }
+      }
+    }
+  }
+
+  .description {
+    text-align: justify;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .martial-section {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .martial-box {
+      border: 1px solid $border-color;
+      border-radius: 10px 10px 10px 10px;
+      padding: 4px;
+      max-width: 150px;
+      max-height: 250px;
+
+      .img-section {
+        position: relative;
+        width: 100%;
+
+        img {
+          width: 100%;
+          height: 100px;
+          object-fit: cover;
+          padding: 0;
+          border: 1px solid $border-color;
+          border-radius: 10px 10px 0 0;
+        }
+      }
+
+      .title-section {
+        text-align: center;
+        font-size: 14px;
+        color: #757e95;
+
+        .name {
+          font-weight: bold;
+          color: #111;
+        }
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+      }
+
+      .action-section {
+        display: flex;
+        justify-content: space-evenly;
+        padding-top: 10px;
+        color: #8597bb;
+      }
+
+      .action-section:hover {
+        color: #1c64f2;
       }
     }
   }

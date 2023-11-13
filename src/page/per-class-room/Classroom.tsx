@@ -1,7 +1,9 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
+import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import LaunchOutlinedIcon from "@mui/icons-material/LaunchOutlined";
 import "../controller/Style.scss";
 import { PostAnnouncementImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
@@ -154,6 +156,28 @@ export default function Classroom() {
                 </div>
                 <div>
                   <p className="description">{item.description}</p>
+                </div>
+
+                <div className="martial-section">
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+                    <div className="martial-box">
+                      <div className="img-section">
+                        <img src={PostAnnouncementImage} alt="" />
+                      </div>
+                      <div className="title-section">
+                        <p className="name"> File Name </p>
+                        <p> PDF </p>
+                      </div>
+                      <div className="action-section">
+                        <CloudDownloadOutlinedIcon />
+                        <LaunchOutlinedIcon
+                          sx={{
+                            fontSize: "1.4rem",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
