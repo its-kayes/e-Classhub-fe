@@ -5,7 +5,7 @@ import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import LaunchOutlinedIcon from "@mui/icons-material/LaunchOutlined";
 import "../controller/Style.scss";
-import { PostAnnouncementImage } from "../../importer/importer";
+import { FileImage, PostAnnouncementImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -17,6 +17,7 @@ import { useFindClassroomMutation } from "../../store/service/classroomApi";
 import { IAnnouncement, IClassroom } from "../../interface/index.global";
 import { useGetAnnouncementMutation } from "../../store/service/announcement";
 import { useAppSelector } from "../../store/app/hook";
+import { dateConverter } from "../../utils/dateConverter";
 
 export default function Classroom() {
   const [classInfo, setClassInfo] = useState<IClassroom>({} as IClassroom);
@@ -187,7 +188,7 @@ export default function Classroom() {
                     <div className="sub-title">
                       <p className="name"> Emrul Kayes </p>
 
-                      <p className="date"> Sep 15, 2023 </p>
+                      <p className="date"> {dateConverter(item.date)} </p>
                     </div>
                   </div>
                   <MoreVertOutlinedIcon />
@@ -200,7 +201,7 @@ export default function Classroom() {
                   {item.materials?.map((material) => (
                     <div key={material._id} className="martial-box">
                       <div className="img-section">
-                        <img src={PostAnnouncementImage} alt="" />
+                        <img src={FileImage} alt="" />
                       </div>
                       <div className="title-section">
                         <p className="name"> {fileName(material.url)} </p>

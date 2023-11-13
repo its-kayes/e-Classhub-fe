@@ -11,6 +11,7 @@ import {
   catchResponse,
 } from "../../utils/catchResponse";
 import { ITracker } from "../../interface/index.global";
+import { dateConverter } from "../../utils/dateConverter";
 
 export default function SessionsInfo() {
   const [userLogInfo, setUserLogInfo] = useState<ITracker[]>([]);
@@ -82,8 +83,8 @@ export default function SessionsInfo() {
                     </p>
                     <p className="no-link">
                       {" "}
-                      {item?.browser?.name} {item?.browser?.version} at (
-                      {item?.date})
+                      {item?.browser?.name} {item?.browser?.version} at{" "}
+                      {dateConverter(item.date as string)}
                     </p>
                   </div>
                 </div>
