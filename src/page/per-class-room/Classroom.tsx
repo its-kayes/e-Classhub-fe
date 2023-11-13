@@ -141,11 +141,20 @@ export default function Classroom() {
             {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => ( */}
             {announcement?.map((item) => (
               <div className="post-short-details" key={item._id}>
-                <img src={PostAnnouncementImage} alt="" />
-                <div>
-                  <p>{item.description}</p>
+                <div className="header">
+                  <div className="title">
+                    <img src={PostAnnouncementImage} alt="" />
+                    <div className="sub-title">
+                      <p className="name"> Emrul Kayes </p>
+
+                      <p className="date"> Sep 15, 2023 </p>
+                    </div>
+                  </div>
+                  <MoreVertOutlinedIcon />
                 </div>
-                <MoreVertOutlinedIcon />
+                <div>
+                  <p className="description">{item.description}</p>
+                </div>
               </div>
             ))}
           </Grid>
