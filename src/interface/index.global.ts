@@ -104,4 +104,5 @@ export type IAnnouncement = {
   }[];
   date: string;
   _id?: string;
+  name: string;
 };

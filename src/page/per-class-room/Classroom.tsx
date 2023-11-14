@@ -60,8 +60,6 @@ export default function Classroom() {
     fetchData();
   }, [email, findClassroom, getAnnouncement, room]);
 
-  console.log(announcement);
-
   // Get the file name from the url
   const fileName = (url: string) => {
     const parts = url.split("/");
@@ -233,7 +231,7 @@ export default function Classroom() {
                   <div className="title">
                     <img src={PostAnnouncementImage} alt="" />
                     <div className="sub-title">
-                      <p className="name"> Emrul Kayes </p>
+                      <p className="name"> {item.name} </p>
 
                       <p className="date"> {dateConverter(item.date)} </p>
                     </div>
