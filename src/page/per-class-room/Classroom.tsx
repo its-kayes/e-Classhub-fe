@@ -113,10 +113,12 @@ export default function Classroom() {
 
     const formData = new FormData();
 
-    // Append description to FormData
-    formData.append("description", description || "");
     formData.append("classCode", classInfo.classCode);
     formData.append("email", email as string);
+
+    if (description) {
+      formData.append("description", description || "");
+    }
 
     // Append each file to FormData with the name "materials"
     if (files && files.length > 0) {
