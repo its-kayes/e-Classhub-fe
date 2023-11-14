@@ -4,6 +4,7 @@ import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCale
 import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import LaunchOutlinedIcon from "@mui/icons-material/LaunchOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import "../controller/Style.scss";
 import { FileImage, PostAnnouncementImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
@@ -16,6 +17,7 @@ import {
 import { useFindClassroomMutation } from "../../store/service/classroomApi";
 import { IAnnouncement, IClassroom } from "../../interface/index.global";
 import {
+  useDeleteAnnouncementMutation,
   useGetAnnouncementMutation,
   useMakeAnnouncementMutation,
 } from "../../store/service/announcement";
@@ -31,6 +33,7 @@ export default function Classroom() {
   const [findClassroom] = useFindClassroomMutation();
   const [getAnnouncement] = useGetAnnouncementMutation();
   const [makeAnnouncement] = useMakeAnnouncementMutation();
+  const [deleteAnnouncement] = useDeleteAnnouncementMutation();
 
   useEffect(() => {
     if (!room || room === null) return;
@@ -94,11 +97,12 @@ export default function Classroom() {
       // Clean up
       window.URL.revokeObjectURL(link.href);
     } catch (error) {
-      console.error("Error downloading file:", error);
+      toast.error("Error downloading file");
     }
   };
 
-  const handleAnnouncement = async (e: FormEvent) => {
+  // Handler to make announcement
+  const handleMakeAnnouncement = async (e: FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
     const description = (
@@ -132,6 +136,31 @@ export default function Classroom() {
     if (response.success === true) {
       toast.success(response.message);
       form.reset();
+
+      const announcements = await getAnnouncement({
+        classCode: room?.toUpperCase(),
+        email,
+      });
+
+      const announcementsResponse = catchResponse(
+        announcements as unknown as IResponse
+      ) as IApiResponse;
+
+      setAnnouncement(announcementsResponse.data as IAnnouncement[]);
+    }
+  };
+
+  const handleDeleteAnnouncement = async (id: string) => {
+    const result = await deleteAnnouncement({
+      id,
+      email,
+      classCode: classInfo.classCode,
+    });
+
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    if (response.success === true) {
+      toast.success(response.message);
 
       const announcements = await getAnnouncement({
         classCode: room?.toUpperCase(),
@@ -188,7 +217,7 @@ export default function Classroom() {
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <div className="announcement-writing-box">
-              <form onSubmit={handleAnnouncement}>
+              <form onSubmit={handleMakeAnnouncement}>
                 <textarea
                   placeholder="Announce something to your class"
                   name="description"
@@ -226,7 +255,7 @@ export default function Classroom() {
 
             {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => ( */}
             {announcement?.map((item) => (
-              <div className="post-short-details" key={item._id}>
+              <div className="post-short-details" key={item.id}>
                 <div className="header">
                   <div className="title">
                     <img src={PostAnnouncementImage} alt="" />
@@ -236,7 +265,29 @@ export default function Classroom() {
                       <p className="date"> {dateConverter(item.date)} </p>
                     </div>
                   </div>
-                  <MoreVertOutlinedIcon />
+                  <DeleteForeverOutlinedIcon
+                    onClick={() => handleDeleteAnnouncement(item.id as string)}
+                    sx={{
+                      ":hover": {
+                        cursor: "pointer",
+                        color: "red",
+                        transform: "scale(1.2)",
+                        transition: "transform 0.3s ease-in-out",
+                        animation: "shake 0.5s",
+                      },
+                      "@keyframes shake": {
+                        "0%, 100%": {
+                          transform: "translateX(0)",
+                        },
+                        "10%, 30%, 50%, 70%, 90%": {
+                          transform: "translateX(-3px)",
+                        },
+                        "20%, 40%, 60%, 80%": {
+                          transform: "translateX(3px)",
+                        },
+                      },
+                    }}
+                  />
                 </div>
                 <div>
                   <p className="description">{item.description}</p>

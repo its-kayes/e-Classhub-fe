@@ -20,9 +20,20 @@ const announcementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Announcement"],
     }),
+    deleteAnnouncement: build.mutation({
+      query: (payload) => ({
+        url: `/announcement/delete`,
+        method: "DELETE",
+        body: payload,
+      }),
+      invalidatesTags: ["Announcement"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetAnnouncementMutation, useMakeAnnouncementMutation } =
-  announcementApi;
+export const {
+  useGetAnnouncementMutation,
+  useMakeAnnouncementMutation,
+  useDeleteAnnouncementMutation,
+} = announcementApi;
