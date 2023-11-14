@@ -119,7 +119,7 @@ export default function Classroom() {
     formData.append("email", email as string);
 
     if (description) {
-      formData.append("description", description || "");
+      formData.append("description", description);
     }
 
     // Append each file to FormData with the name "materials"
