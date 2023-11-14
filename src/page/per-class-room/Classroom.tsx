@@ -7,7 +7,7 @@ import LaunchOutlinedIcon from "@mui/icons-material/LaunchOutlined";
 import "../controller/Style.scss";
 import { FileImage, PostAnnouncementImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   IApiResponse,
   IResponse,
@@ -15,9 +15,13 @@ import {
 } from "../../utils/catchResponse";
 import { useFindClassroomMutation } from "../../store/service/classroomApi";
 import { IAnnouncement, IClassroom } from "../../interface/index.global";
-import { useGetAnnouncementMutation } from "../../store/service/announcement";
+import {
+  useGetAnnouncementMutation,
+  useMakeAnnouncementMutation,
+} from "../../store/service/announcement";
 import { useAppSelector } from "../../store/app/hook";
 import { dateConverter } from "../../utils/dateConverter";
+import toast from "react-hot-toast";
 
 export default function Classroom() {
   const [classInfo, setClassInfo] = useState<IClassroom>({} as IClassroom);
@@ -26,6 +30,7 @@ export default function Classroom() {
   const { email } = useAppSelector((state) => state.local.userReducer);
   const [findClassroom] = useFindClassroomMutation();
   const [getAnnouncement] = useGetAnnouncementMutation();
+  const [makeAnnouncement] = useMakeAnnouncementMutation();
 
   useEffect(() => {
     if (!room || room === null) return;
@@ -95,6 +100,52 @@ export default function Classroom() {
     }
   };
 
+  const handleAnnouncement = async (e: FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const description = (
+      form.querySelector("textarea[name='description']") as HTMLInputElement
+    )?.value;
+
+    // Get selected files
+    const filesInput = form.querySelector("#files") as HTMLInputElement;
+    const files = filesInput?.files;
+
+    const formData = new FormData();
+
+    // Append description to FormData
+    formData.append("description", description || "");
+    formData.append("classCode", classInfo.classCode);
+    formData.append("email", email as string);
+
+    // Append each file to FormData with the name "materials"
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        formData.append("materials", file);
+      }
+    }
+
+    const result = await makeAnnouncement(formData);
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    if (response.success === true) {
+      toast.success(response.message);
+      form.reset();
+
+      const announcements = await getAnnouncement({
+        classCode: room?.toUpperCase(),
+        email,
+      });
+
+      const announcementsResponse = catchResponse(
+        announcements as unknown as IResponse
+      ) as IApiResponse;
+
+      setAnnouncement(announcementsResponse.data as IAnnouncement[]);
+    }
+  };
+
   return (
     <Box>
       {/* Short Class details */}
@@ -137,17 +188,17 @@ export default function Classroom() {
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <div className="announcement-writing-box">
-              <form>
+              <form onSubmit={handleAnnouncement}>
                 <textarea
                   placeholder="Announce something to your class"
-                  name=""
+                  name="description"
                   id=""
                   cols={30}
                   rows={4}
                 ></textarea>
 
                 <label
-                  htmlFor="images"
+                  htmlFor="files"
                   className="drop-container"
                   id="dropcontainer"
                 >
@@ -155,16 +206,10 @@ export default function Classroom() {
                     Drop or Click here to upload files...
                   </span>
 
-                  <input
-                    hidden
-                    type="file"
-                    id="images"
-                    accept="image/*"
-                    required
-                  />
+                  <input hidden type="file" id="files" multiple />
                 </label>
 
-                <button className="announcement-btn">
+                <button type="submit" className="announcement-btn">
                   {" "}
                   <span
                     style={{

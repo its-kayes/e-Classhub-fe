@@ -12,8 +12,17 @@ const announcementApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["Announcement"],
     }),
+    makeAnnouncement: build.mutation({
+      query: (payload) => ({
+        url: `/announcement/create`,
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["Announcement"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetAnnouncementMutation } = announcementApi;
+export const { useGetAnnouncementMutation, useMakeAnnouncementMutation } =
+  announcementApi;
