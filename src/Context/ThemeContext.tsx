@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export const ThemeContext = createContext({
   isDark: false,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setIsDark: (isDark: boolean) => {},
+  // setIsDark: (isDark: boolean) => {},
 });
 
 const ThemeProvider: FC<{ children: React.ReactNode }> = ({
@@ -28,6 +28,7 @@ ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const theme = useContext(ThemeContext);
   return theme;
