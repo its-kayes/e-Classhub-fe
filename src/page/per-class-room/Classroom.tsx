@@ -1,140 +1,182 @@
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import ButtonGroup from "@mui/material/ButtonGroup";
 import PermContactCalendarOutlinedIcon from "@mui/icons-material/PermContactCalendarOutlined";
+import CloudDownloadOutlinedIcon from "@mui/icons-material/CloudDownloadOutlined";
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+import LaunchOutlinedIcon from "@mui/icons-material/LaunchOutlined";
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import "../controller/Style.scss";
-import { PostAnnouncementImage, UserImage } from "../../importer/importer";
+import { FileImage, PostAnnouncementImage } from "../../importer/importer";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { IResponse, catchResponse } from "../../utils/catchResponse";
+import { FormEvent, useEffect, useState } from "react";
+import {
+  IApiResponse,
+  IResponse,
+  catchResponse,
+} from "../../utils/catchResponse";
 import { useFindClassroomMutation } from "../../store/service/classroomApi";
-import { IClassroom } from "../../interface/index.global";
-
-const buttons = [
-  <Button
-    key="Stream"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Stream
-  </Button>,
-  <Button
-    key="Classwork"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Classwork
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    People
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Chat with Mentor
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Group Chat
-  </Button>,
-  <Button
-    key="People"
-    sx={{
-      textTransform: "none",
-      color: "black",
-      "&:active": {
-        backgroundColor: "#1C64F2",
-        color: "white",
-      },
-    }}
-  >
-    Meet now
-  </Button>,
-];
+import { IAnnouncement, IClassroom } from "../../interface/index.global";
+import {
+  useDeleteAnnouncementMutation,
+  useGetAnnouncementMutation,
+  useMakeAnnouncementMutation,
+} from "../../store/service/announcement";
+import { useAppSelector } from "../../store/app/hook";
+import { dateConverter } from "../../utils/dateConverter";
+import toast from "react-hot-toast";
 
 export default function Classroom() {
   const [classInfo, setClassInfo] = useState<IClassroom>({} as IClassroom);
+  const [announcement, setAnnouncement] = useState<IAnnouncement[]>([]);
   const { room } = useParams();
+  const { email } = useAppSelector((state) => state.local.userReducer);
   const [findClassroom] = useFindClassroomMutation();
+  const [getAnnouncement] = useGetAnnouncementMutation();
+  const [makeAnnouncement] = useMakeAnnouncementMutation();
+  const [deleteAnnouncement] = useDeleteAnnouncementMutation();
 
   useEffect(() => {
     if (!room || room === null) return;
 
     async function fetchData() {
-      // const userInfo: IUserInfo = JSON.parse(
-      //   localStorage.getItem("userInfo") || "{}"
-      // );
-
       const result = await findClassroom({
         room: room?.toUpperCase(),
       });
 
-      const response = catchResponse(result as unknown as IResponse);
-      setClassInfo(response as IClassroom);
+      const announcements = await getAnnouncement({
+        classCode: room?.toUpperCase(),
+        email,
+      });
+
+      const announcementsResponse = catchResponse(
+        announcements as unknown as IResponse
+      ) as IApiResponse;
+
+      const response = catchResponse(
+        result as unknown as IResponse
+      ) as IApiResponse;
+
+      setClassInfo(response.data as IClassroom);
+      setAnnouncement(announcementsResponse.data as IAnnouncement[]);
     }
 
     fetchData();
-  }, [findClassroom, room]);
+  }, [email, findClassroom, getAnnouncement, room]);
 
-  console.log(classInfo);
+  // Get the file name from the url
+  const fileName = (url: string) => {
+    const parts = url.split("/");
+    const fileNamePart = parts[3];
+
+    // Remove "ux28-test-7no5_" from the fileNamePart
+    const cleanedFileName = fileNamePart
+      .replace(`${room}_`, "")
+      .replace(/_/g, " ");
+
+    // Capitalize the first letter of the remaining string
+    const finalFileName =
+      cleanedFileName.charAt(0).toUpperCase() + cleanedFileName.slice(1);
+
+    return finalFileName;
+  };
+
+  // Download the file
+  const handleDownload = async (url: string, fileName: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      // Create a link element
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+
+      // Trigger the download automatically
+      link.click();
+
+      // Clean up
+      window.URL.revokeObjectURL(link.href);
+    } catch (error) {
+      toast.error("Error downloading file");
+    }
+  };
+
+  // Handler to make announcement
+  const handleMakeAnnouncement = async (e: FormEvent) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const description = (
+      form.querySelector("textarea[name='description']") as HTMLInputElement
+    )?.value;
+
+    // Get selected files
+    const filesInput = form.querySelector("#files") as HTMLInputElement;
+    const files = filesInput?.files;
+
+    const formData = new FormData();
+
+    formData.append("classCode", classInfo.classCode);
+    formData.append("email", email as string);
+
+    if (description) {
+      formData.append("description", description);
+    }
+
+    // Append each file to FormData with the name "materials"
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        formData.append("materials", file);
+      }
+    }
+
+    const result = await makeAnnouncement(formData);
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    if (response.success === true) {
+      toast.success(response.message);
+      form.reset();
+
+      const announcements = await getAnnouncement({
+        classCode: room?.toUpperCase(),
+        email,
+      });
+
+      const announcementsResponse = catchResponse(
+        announcements as unknown as IResponse
+      ) as IApiResponse;
+
+      setAnnouncement(announcementsResponse.data as IAnnouncement[]);
+    }
+  };
+
+  const handleDeleteAnnouncement = async (id: string) => {
+    const result = await deleteAnnouncement({
+      id,
+      email,
+      classCode: classInfo.classCode,
+    });
+
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    if (response.success === true) {
+      toast.success(response.message);
+
+      const announcements = await getAnnouncement({
+        classCode: room?.toUpperCase(),
+        email,
+      });
+
+      const announcementsResponse = catchResponse(
+        announcements as unknown as IResponse
+      ) as IApiResponse;
+
+      setAnnouncement(announcementsResponse.data as IAnnouncement[]);
+    }
+  };
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "self-start",
-          marginBottom: "20px",
-          "& > *": {
-            m: 1,
-          },
-        }}
-      >
-        <ButtonGroup aria-label="medium button group">{buttons}</ButtonGroup>
-      </Box>
-
       {/* Short Class details */}
       <Box
         sx={{
@@ -175,25 +217,112 @@ export default function Classroom() {
         <Grid container spacing={2}>
           <Grid item xs={9}>
             <div className="announcement-writing-box">
-              <img src={UserImage} alt="" />
-              <input
-                type="text"
-                placeholder="Announce something to your class"
-              />
+              <form onSubmit={handleMakeAnnouncement}>
+                <textarea
+                  placeholder="Announce something to your class"
+                  name="description"
+                  id=""
+                  cols={30}
+                  rows={4}
+                ></textarea>
+
+                <label
+                  htmlFor="files"
+                  className="drop-container"
+                  id="dropcontainer"
+                >
+                  <span className="drop-title">
+                    Drop or Click here to upload files...
+                  </span>
+
+                  <input hidden type="file" id="files" multiple />
+                </label>
+
+                <button type="submit" className="announcement-btn">
+                  {" "}
+                  <span
+                    style={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span> Announcement </span>
+                  </span>{" "}
+                </button>
+              </form>
             </div>
 
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-              <div className="post-short-details" key={item}>
-                <img src={PostAnnouncementImage} alt="" />
-                <div>
-                  <p>
-                    {" "}
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Cupiditate laudantium laboriosam eius? Esse, in laborum
-                    laboriosam eius? Esse, in laborum!
-                  </p>
+            {/* {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => ( */}
+            {announcement?.map((item) => (
+              <div className="post-short-details" key={item.id}>
+                <div className="header">
+                  <div className="title">
+                    <img src={PostAnnouncementImage} alt="" />
+                    <div className="sub-title">
+                      <p className="name"> {item.name} </p>
+
+                      <p className="date"> {dateConverter(item.date)} </p>
+                    </div>
+                  </div>
+                  <DeleteForeverOutlinedIcon
+                    onClick={() => handleDeleteAnnouncement(item.id as string)}
+                    sx={{
+                      ":hover": {
+                        cursor: "pointer",
+                        color: "red",
+                        transform: "scale(1.2)",
+                        transition: "transform 0.3s ease-in-out",
+                        animation: "shake 0.5s",
+                      },
+                      "@keyframes shake": {
+                        "0%, 100%": {
+                          transform: "translateX(0)",
+                        },
+                        "10%, 30%, 50%, 70%, 90%": {
+                          transform: "translateX(-3px)",
+                        },
+                        "20%, 40%, 60%, 80%": {
+                          transform: "translateX(3px)",
+                        },
+                      },
+                    }}
+                  />
                 </div>
-                <MoreVertOutlinedIcon />
+                <div>
+                  <p className="description">{item.description}</p>
+                </div>
+
+                <div className="martial-section">
+                  {item.materials?.map((material) => (
+                    <div key={material._id} className="martial-box">
+                      <div className="img-section">
+                        <img src={FileImage} alt="" />
+                      </div>
+                      <div className="title-section">
+                        <p className="name"> {fileName(material.url)} </p>
+                        <p> {material?.url?.split(".")[4]?.toUpperCase()} </p>
+                      </div>
+                      <div className="action-section">
+                        <CloudDownloadOutlinedIcon
+                          onClick={() =>
+                            handleDownload(
+                              material.url as string,
+                              fileName(material.url) as string
+                            )
+                          }
+                        />
+
+                        <LaunchOutlinedIcon
+                          sx={{
+                            fontSize: "1.4rem",
+                          }}
+                          onClick={() => window.open(material.url)}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </Grid>

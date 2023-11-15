@@ -30,8 +30,7 @@ interface ErrorResponse {
 
 export const catchResponse = (result: SuccessResponse | ErrorResponse) => {
   if ("data" in result && result.data.success) {
-    toast.success(result.data.message);
-    return result.data.data; // don't change return type
+    return result.data; // don't change return type
   } else if ("error" in result && "data" in result.error) {
     const errorData = result.error.data as {
       success: boolean;
@@ -50,7 +49,7 @@ export const catchResponse = (result: SuccessResponse | ErrorResponse) => {
 
     return result.error.data;
   } else {
-    toast.error("An error occurred while logging in.");
+    toast.error("Something went wrong on client!");
     return result;
   }
 };

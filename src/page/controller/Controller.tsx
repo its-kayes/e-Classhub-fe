@@ -25,12 +25,17 @@ import Button from "@mui/material/Button";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Modal from "@mui/material/Modal";
 import { Link, Outlet } from "react-router-dom";
-import { ICreateClassInfo, IUserInfo } from "../../interface/index.global";
+import { ICreateClassInfo } from "../../interface/index.global";
 import { CreateClassInputStyle, CreateStyle } from "../../style";
 import { useCreateClassroomMutation } from "../../store/service/classroomApi";
-import { IResponse, catchResponse } from "../../utils/catchResponse";
+import {
+  IApiResponse,
+  IResponse,
+  catchResponse,
+} from "../../utils/catchResponse";
 import toast from "react-hot-toast";
 import { useJoinClassroomMutation } from "../../store/service/peopleApi";
+import { useAppSelector } from "../../store/app/hook";
 
 const drawerWidth = 240;
 
@@ -107,7 +112,7 @@ export default function Controller() {
   const theme = useTheme();
   const [openCreateModal, setOpenCreateModal] = React.useState(false);
   const [openJoinModal, setOpenJoinModal] = React.useState(false);
-  const [userInfo, setUserInfo] = React.useState<IUserInfo>({} as IUserInfo);
+
   const [open, setOpen] = React.useState(false);
   const [createClassInfo, setCreateClassInfo] =
     React.useState<ICreateClassInfo>({
@@ -116,6 +121,9 @@ export default function Controller() {
     });
   const [joinClassCode, setJoinClassCode] = React.useState<string>("");
 
+  const { email, name, type } = useAppSelector(
+    (state) => state.local.userReducer
+  );
   const [createClassroom] = useCreateClassroomMutation();
   const [joinClassroom] = useJoinClassroomMutation();
 
@@ -127,19 +135,17 @@ export default function Controller() {
   const handleDrawerOpen = () => setOpen(true);
   const handleDrawerClose = () => setOpen(false);
 
-  React.useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("userInfo") || "{}"));
-  }, []);
-
   // Handle Create Classroom
   const handleCreateClassroom = async () => {
     const result = await createClassroom({
       ...createClassInfo,
-      mentorEmail: userInfo.email,
-      mentorName: userInfo.name,
+      mentorEmail: email,
+      mentorName: name,
     });
 
-    catchResponse(result as IResponse);
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    if (response.success) toast.success(response.message);
 
     handleCreateModalClose();
   };
@@ -149,12 +155,14 @@ export default function Controller() {
     const classCodeRegex = /^[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     if (!classCodeRegex.test(joinClassCode)) return toast.error("Invalid Code");
 
-    const result = await joinClassroom({
+    const result = (await joinClassroom({
       classCode: joinClassCode,
-      requestEmail: userInfo.email,
-    });
+      requestEmail: email,
+    })) as IApiResponse;
 
-    catchResponse(result as IResponse);
+    const response = catchResponse(result as IResponse) as IApiResponse;
+
+    if (response.success) toast.success(response.message);
 
     handleJoinModalClose();
   };
@@ -240,7 +248,7 @@ export default function Controller() {
                   display: "flex",
                 }}
               >
-                {userInfo.type === "mentor" ? (
+                {type === "mentor" ? (
                   <Button
                     variant="outlined"
                     startIcon={<AddOutlinedIcon />}
@@ -439,7 +447,13 @@ export default function Controller() {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Outlet />
+        <Box
+          sx={{
+            minHeight: "85vh",
+          }}
+        >
+          <Outlet />
+        </Box>
       </Box>
 
       {/* <--------------------- Create Classroom Modal -------------------------> */}
@@ -487,13 +501,13 @@ export default function Controller() {
             style={CreateClassInputStyle}
             type="text"
             placeholder="email"
-            value={userInfo.email}
+            value={email}
           />
           <input
             style={CreateClassInputStyle}
             type="text"
             placeholder="Mentor Name"
-            value={userInfo.name}
+            value={name}
           />
           <Button
             variant="outlined"
