@@ -8,6 +8,7 @@ import Classroom from "../page/per-class-room/Classroom";
 import Classes from "../page/classes/Classes";
 import RoomManager from "../page/per-class-room/RoomManager";
 import Members from "../page/per-class-room/Members";
+import NotFound from "../page/not-found/NotFound";
 
 /* All of Routers */
 const routers = createBrowserRouter([
@@ -50,6 +51,10 @@ const routers = createBrowserRouter([
   {
     path: "/sign-up",
     element: <Signup />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
