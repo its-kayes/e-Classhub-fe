@@ -1,30 +1,5 @@
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0;
-}
-
 .error-container {
   text-align: center;
-
-  h1 {
-    font-size: 8em;
-    margin: 0;
-    color: #ff6347; /* Tomato color */
-    // animation: jump 1s infinite alternate;
-    animation: spin 4s infinite ease-in-out;
-  }
-
-  p {
-    font-size: 1.5em;
-    margin-top: 0.5em;
-    color: #333;
-    // animation: jump 1s infinite alternate;
-    animation: spin 4s infinite ease-in-out;
-  }
 
   img {
     margin-top: 2em;
@@ -42,15 +17,6 @@ body {
     }
     50% {
       transform: scale(1.2);
-    }
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
     }
   }
 }
