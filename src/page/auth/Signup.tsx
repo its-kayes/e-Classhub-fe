@@ -5,6 +5,7 @@ import { FormEvent, useState } from "react";
 import { IResponse, catchResponse } from "../../utils/catchResponse";
 import { useSignUpMutation } from "../../store/service/userApi";
 import toast from "react-hot-toast";
+import { VideoTutorial } from "../../importer/importer";
 
 export default function Signup() {
   const [type, setType] = useState<string>("student");
@@ -68,7 +69,7 @@ export default function Signup() {
       <div className="video-tutorial">
         <img
           className="video-tutorial"
-          src="../../../src/assets/video-tutorial.jpeg"
+          src={VideoTutorial}
           alt="this is video tutorial image"
         />
       </div>

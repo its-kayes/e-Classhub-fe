@@ -9,6 +9,7 @@ import {
 } from "../../utils/catchResponse";
 import { useAppDispatch } from "../../store/app/hook";
 import { addUser } from "../../store/features/user/userSlice";
+import { VideoTutorial } from "../../importer/importer";
 
 export default function Login() {
   const [singIn] = useSingInMutation();
@@ -58,7 +59,7 @@ export default function Login() {
       <div className="video-tutorial">
         <img
           className="video-tutorial"
-          src="../../../src/assets/video-tutorial.jpeg"
+          src={VideoTutorial}
           alt="this is video tutorial image"
         />
       </div>
