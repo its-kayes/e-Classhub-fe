@@ -49,22 +49,24 @@ export default function RoomManager() {
         Members
       </Button>
     </Link>,
-    <Button
-      key="People"
-      sx={{
-        textTransform: "none",
-        color: "black",
-        "&:active": {
-          backgroundColor: "#1C64F2",
-          color: "white",
-        },
-      }}
-    >
-      Chat with Mentor
-    </Button>,
-    <Link to={`/classes/${room}/chat`}>
+    <Link to={`/classes/${room}/chat-with-mentor`}>
       <Button
-        key="People"
+        key="chat-with-mentor"
+        sx={{
+          textTransform: "none",
+          color: "black",
+          "&:active": {
+            backgroundColor: "#1C64F2",
+            color: "white",
+          },
+        }}
+      >
+        Chat with Mentor
+      </Button>
+    </Link>,
+    <Link to={`/classes/${room}/group-chat`}>
+      <Button
+        key="group-chat"
         sx={{
           textTransform: "none",
           color: "black",

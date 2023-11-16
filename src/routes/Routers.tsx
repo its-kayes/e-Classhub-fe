@@ -13,6 +13,7 @@ import Chat from "../page/chat/Chat";
 import { io } from "socket.io-client";
 import Private from "../page/chat/Private";
 import GroupChat from "../page/chat/GroupChat";
+import MentorChat from "../page/chat/MentorChat";
 const socket = io("http://localhost:3000");
 
 /* All of Routers */
@@ -48,6 +49,10 @@ const routers = createBrowserRouter([
           {
             path: "/classes/:room/group-chat",
             element: <GroupChat />,
+          },
+          {
+            path: "/classes/:room/chat-with-mentor",
+            element: <MentorChat />,
           },
         ],
       },

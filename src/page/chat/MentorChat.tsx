@@ -2,13 +2,13 @@ import { useRef } from "react";
 import { UserImage } from "../../importer/importer";
 import "./Style.scss";
 
-export default function GroupChat() {
+export default function MentorChat() {
   const lastMessageRef = useRef(null);
 
   return (
     <div className="group-chat-section">
       <div className="header-section">
-        <p> Group Chat </p>
+        <p> Conversion with Developer Emrul kayes </p>
       </div>
 
       <div className="all-messages-section">
