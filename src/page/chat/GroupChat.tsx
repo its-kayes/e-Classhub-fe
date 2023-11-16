@@ -10,6 +10,7 @@ export default function GroupChat() {
 
       <div className="all-messages-section">
         <div className="message-section">
+          {/* <--------------- Message ---------------> */}
           {[1, 2, 4, 5, 6, 8, 9, 4, 3, 31].map(() => (
             <div className="message">
               <img src={UserImage} alt="User Image" />
@@ -28,6 +29,7 @@ export default function GroupChat() {
             </div>
           ))}
 
+          {/* <--------------- Own Message ---------------> */}
           <div className="own-message">
             <div className="message-body">
               <div className="header">
@@ -38,6 +40,18 @@ export default function GroupChat() {
                 voluptates?
               </p>
             </div>
+          </div>
+
+          {/* <--------------- Typing ---------------> */}
+          <div className="message">
+            <img src={UserImage} alt="User Image" />
+            <div className="message-body">
+              <div className="header">
+                <p className="name"> Dev Kayes </p>
+              </div>
+              <p className="typing">...</p>
+            </div>
+            -
           </div>
         </div>
       </div>

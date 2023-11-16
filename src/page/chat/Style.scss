@@ -79,6 +79,26 @@
             border: 1px solid #e4e7eb;
             border-radius: 0 10px 10px 10px;
           }
+
+          .typing {
+            overflow: hidden; /* Hide the dots initially */
+            white-space: nowrap; /* Keep the dots on a single line */
+            animation: typingAnimation 1.5s infinite; /* Apply the typing 
+            animation */
+            font-weight: bold;
+          }
+
+          @keyframes typingAnimation {
+            0% {
+              width: 0; /* Start with no width, making it look like typing is starting */
+            }
+            50% {
+              width: 20px; /* Increase width halfway to create the typing effect */
+            }
+            100% {
+              width: 0; /* Reset width to 0 at the end */
+            }
+          }
         }
       }
 
