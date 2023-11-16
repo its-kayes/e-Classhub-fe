@@ -1,36 +1,39 @@
 import { useEffect, useState } from "react";
-import { Socket } from "socket.io-client";
 import { useAppSelector } from "../../store/app/hook";
+import { Socket } from "socket.io-client";
+import { useParams } from "react-router-dom";
 
 type IMessages = {
   text: string;
   name: string;
   id: string;
   socketID: string;
+  email: string;
 };
 
-export default function Chat({ socket }: { socket: Socket }) {
-  const { name } = useAppSelector((state) => state.local.userReducer);
-  const [userName, setUserName] = useState("");
+export default function Private({ socket }: { socket: Socket }) {
+  const { room } = useParams();
+
+  const { name, email } = useAppSelector((state) => state.local.userReducer);
+
   const [messages, setMessages] = useState<IMessages[]>([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    socket.on("messageResponse", (data) => setMessages([...messages, data]));
-  }, [socket, messages]);
-
-  const handleSubmit = () => {
-    localStorage.setItem("userName", userName);
-    socket.emit("newUser", { userName: name, socketID: socket.id });
-  };
+    socket.on(`private-chat-${room}`, (data) =>
+      setMessages([...messages, data])
+    );
+  }, [socket, messages, room]);
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      socket.emit("message", {
+      socket.emit("private-chat", {
         text: message,
         name,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
+        room,
+        email,
       });
     }
     setMessage("");
@@ -38,22 +41,6 @@ export default function Chat({ socket }: { socket: Socket }) {
 
   return (
     <div>
-      <h2> {name} Connected ............ </h2>
-
-      <input
-        type="text"
-        name="username"
-        id=""
-        onChange={(e) => setUserName(e.target.value)}
-        placeholder="username"
-      />
-      <button type="button" onClick={handleSubmit}>
-        {" "}
-        Login{" "}
-      </button>
-
-      <h2> Chatting....... </h2>
-
       <div>
         {messages.map((message, index) => (
           <div key={index}>
