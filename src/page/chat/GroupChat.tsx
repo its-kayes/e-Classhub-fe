@@ -51,7 +51,12 @@ export default function GroupChat() {
               </div>
               <p className="typing">...</p>
             </div>
-            -
+          </div>
+
+          {/* <------------------- Send Message -------------------> */}
+          <div className="input-box">
+            <textarea name="" id="" cols={200} rows={2}></textarea>
+            <button> Send </button>
           </div>
         </div>
       </div>

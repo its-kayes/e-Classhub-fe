@@ -25,8 +25,9 @@
   }
 
   .all-messages-section {
-    padding: 20px 20px;
-    height: 65vh;
+    // padding: 20px 20px;
+    padding: 0 20px 0 20px;
+    height: 68vh;
     overflow-y: scroll;
 
     .message-section {
@@ -65,8 +66,8 @@
               margin-right: 40px;
             }
 
-            .time {
-            }
+            // .time {
+            // }
           }
 
           .text {
@@ -121,8 +122,8 @@
             justify-content: flex-end;
             align-items: center;
 
-            .time {
-            }
+            // .time {
+            // }
           }
 
           .text {
@@ -135,6 +136,35 @@
             border-radius: 8px 0px 8px 8px;
             color: white;
           }
+        }
+      }
+
+      .input-box {
+        textarea {
+          border: none;
+          width: 100%;
+          min-width: 100%;
+          max-width: 100%;
+          padding: 0px 15px 0px 15px;
+          font-size: 16px;
+          color: black;
+          border: 2px dashed #555;
+          border-radius: 10px;
+          padding-top: 10px;
+          min-height: 100px;
+        }
+
+        textarea:focus {
+          outline: none;
+        }
+
+        button {
+          font-weight: bold;
+          width: 100%;
+          margin: 0;
+          padding: 5px 0;
+          color: white;
+          background-color: #1c64f2;
         }
       }
     }
