@@ -1,6 +1,6 @@
 // <----------------------- Group Chat ------------------------>
 .group-chat-section {
-  margin: 20px;
+  margin: 10px;
   width: 89vw;
   border: 1px solid black;
   border-radius: 10px;
@@ -9,7 +9,7 @@
   height: 75vh;
 
   .header-section {
-    padding: 20px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid black;
 
     p {
@@ -78,6 +78,42 @@
             align-self: stretch;
             border: 1px solid #e4e7eb;
             border-radius: 0 10px 10px 10px;
+          }
+        }
+      }
+
+      .own-message {
+        display: flex;
+        justify-content: end;
+        align-items: start;
+        width: 100%;
+        margin-bottom: 15px;
+
+        .message-body {
+          max-width: 50vw;
+
+          p {
+            margin: 0;
+          }
+
+          .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            .time {
+            }
+          }
+
+          .text {
+            background: #5388f2;
+            display: flex;
+            padding: 10px 14px;
+            align-items: center;
+            gap: 8px;
+            align-self: stretch;
+            border-radius: 8px 0px 8px 8px;
+            color: white;
           }
         }
       }

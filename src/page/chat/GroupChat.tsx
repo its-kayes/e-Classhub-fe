@@ -27,6 +27,18 @@ export default function GroupChat() {
               </div>
             </div>
           ))}
+
+          <div className="own-message">
+            <div className="message-body">
+              <div className="header">
+                <p className="time"> 12:00 PM </p>
+              </div>
+              <p className="text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore,
+                voluptates?
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
