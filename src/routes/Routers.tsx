@@ -12,6 +12,7 @@ import NotFound from "../page/not-found/NotFound";
 import Chat from "../page/chat/Chat";
 import { io } from "socket.io-client";
 import Private from "../page/chat/Private";
+import GroupChat from "../page/chat/GroupChat";
 const socket = io("http://localhost:3000");
 
 /* All of Routers */
@@ -43,6 +44,10 @@ const routers = createBrowserRouter([
           {
             path: "/classes/:room/chat",
             element: <Private socket={socket} />,
+          },
+          {
+            path: "/classes/:room/group-chat",
+            element: <GroupChat />,
           },
         ],
       },
