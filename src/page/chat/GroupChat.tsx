@@ -1,7 +1,10 @@
+import { useRef } from "react";
 import { UserImage } from "../../importer/importer";
 import "./Style.scss";
 
 export default function GroupChat() {
+  const lastMessageRef = useRef(null);
+
   return (
     <div className="group-chat-section">
       <div className="header-section">
@@ -43,7 +46,7 @@ export default function GroupChat() {
           </div>
 
           {/* <--------------- Typing ---------------> */}
-          <div className="message">
+          <div className="message" ref={lastMessageRef}>
             <img src={UserImage} alt="User Image" />
             <div className="message-body">
               <div className="header">
@@ -52,12 +55,12 @@ export default function GroupChat() {
               <p className="typing">...</p>
             </div>
           </div>
+        </div>
 
-          {/* <------------------- Send Message -------------------> */}
-          <div className="input-box">
-            <textarea name="" id="" cols={200} rows={2}></textarea>
-            <button> Send </button>
-          </div>
+        {/* <------------------- Send Message -------------------> */}
+        <div className="input-box">
+          <textarea name="" id="" cols={200} rows={2}></textarea>
+          <button> Send </button>
         </div>
       </div>
     </div>
