@@ -9,6 +9,9 @@ import Classes from "../page/classes/Classes";
 import RoomManager from "../page/per-class-room/RoomManager";
 import Members from "../page/per-class-room/Members";
 import NotFound from "../page/not-found/NotFound";
+import Chat from "../page/chat/Chat";
+import { io } from "socket.io-client";
+const socket = io("http://localhost:3000");
 
 /* All of Routers */
 const routers = createBrowserRouter([
@@ -51,6 +54,10 @@ const routers = createBrowserRouter([
   {
     path: "/sign-up",
     element: <Signup />,
+  },
+  {
+    path: "/chat",
+    element: <Chat socket={socket} />,
   },
   {
     path: "*",
