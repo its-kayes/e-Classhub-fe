@@ -12,6 +12,8 @@ export default function GroupChat({ socket }: { socket: Socket }) {
 
   const [message, setMessage] = useState<string>();
   const [messages, setMessages] = useState<IMessage[]>([]);
+  const [typing, setTyping] = useState<IMessage>();
+
   const lastMessageRef = useRef(null);
 
   const handleSendMessage = () => {
@@ -28,13 +30,25 @@ export default function GroupChat({ socket }: { socket: Socket }) {
     }
   };
 
-  useEffect(() => {
-    socket.on(`group-chat-${room}`, (data) => {
-      setMessages([...messages, data]);
+  const handleTyping = () => {
+    socket.emit("typing", {
+      room,
+      message,
+      name,
+      token: `${socket.id}${Math.random()}`,
+      socketID: socket.id,
+      email,
+      time: new Date(),
     });
+  };
+
+  useEffect(() => {
+    socket.on(`group-chat-${room}`, (data) => setMessages([...messages, data]));
   }, [messages, room, socket]);
 
-  console.log(messages);
+  useEffect(() => {
+    socket.on(`who-typing-${room}`, (data) => setTyping(data));
+  }, [room, socket]);
 
   return (
     <div className="group-chat-section">
@@ -74,15 +88,18 @@ export default function GroupChat({ socket }: { socket: Socket }) {
           })}
 
           {/* <--------------- Typing ---------------> */}
-          <div className="message" ref={lastMessageRef}>
-            <img src={UserImage} alt="User Image" />
-            <div className="message-body">
-              <div className="header">
-                <p className="name"> Dev Kayes </p>
+
+          {typing && (
+            <div className="message" ref={lastMessageRef}>
+              <img src={UserImage} alt="User Image" />
+              <div className="message-body">
+                <div className="header">
+                  <p className="name"> {typing.name} </p>
+                </div>
+                <p className="typing">...</p>
               </div>
-              <p className="typing">...</p>
             </div>
-          </div>
+          )}
 
           {/* <------------------- Send Message -------------------> */}
           <div className="input-box">
@@ -92,6 +109,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
               id=""
               cols={200}
               rows={2}
+              onKeyDown={handleTyping}
             ></textarea>
             <button onClick={handleSendMessage} type="button">
               {" "}
