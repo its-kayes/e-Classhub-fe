@@ -61,6 +61,18 @@ export default function GroupChat({ socket }: { socket: Socket }) {
     }
   }, [messages, typing]);
 
+  useEffect(() => {
+    if (!typing || typing === null || typing === undefined) return;
+
+    const timeoutId = setTimeout(() => {
+      setTyping(null);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [typing]);
+
   return (
     <div className="group-chat-section">
       <div className="header-section">
