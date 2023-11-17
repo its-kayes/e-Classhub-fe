@@ -45,11 +45,8 @@ export default function GroupChat({ socket }: { socket: Socket }) {
 
   useEffect(() => {
     socket.on(`group-chat-${room}`, (data) => setMessages([...messages, data]));
-  }, [messages, room, socket]);
-
-  useEffect(() => {
     socket.on(`who-typing-${room}`, (data) => setTyping(data));
-  }, [room, socket]);
+  }, [messages, room, socket]);
 
   useEffect(() => {
     if (lastMessageRef.current) {
@@ -59,9 +56,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
         inline: "start",
       });
     }
-  }, [messages, typing]);
 
-  useEffect(() => {
     if (!typing || typing === null || typing === undefined) return;
 
     const timeoutId = setTimeout(() => {
@@ -71,7 +66,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [typing]);
+  }, [messages, typing]);
 
   return (
     <div className="group-chat-section">
