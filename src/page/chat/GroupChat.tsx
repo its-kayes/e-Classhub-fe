@@ -59,7 +59,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
         inline: "start",
       });
     }
-  }, [messages]);
+  }, [messages, typing]);
 
   return (
     <div className="group-chat-section">
@@ -125,7 +125,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
           rows={2}
           onKeyDown={handleTyping}
           onBlur={() => setTyping(null)}
-          placeholder="Type a message"
+          placeholder="Type a message __"
         ></textarea>
         <button onClick={handleSendMessage} type="button">
           Send
