@@ -14,7 +14,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [typing, setTyping] = useState<IMessage | null>();
 
-  const lastMessageRef = useRef(null);
+  const lastMessageRef = useRef<HTMLDivElement>(null);
 
   const handleSendMessage = () => {
     if (message) {
@@ -50,6 +50,16 @@ export default function GroupChat({ socket }: { socket: Socket }) {
   useEffect(() => {
     socket.on(`who-typing-${room}`, (data) => setTyping(data));
   }, [room, socket]);
+
+  useEffect(() => {
+    if (lastMessageRef.current) {
+      lastMessageRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+  }, [messages]);
 
   return (
     <div className="group-chat-section">
@@ -91,7 +101,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
           {/* <--------------- Typing ---------------> */}
 
           {typing && typing.email !== email && (
-            <div className="message" ref={lastMessageRef}>
+            <div className="message">
               <img src={UserImage} alt="User Image" />
               <div className="message-body">
                 <div className="header">
@@ -102,23 +112,24 @@ export default function GroupChat({ socket }: { socket: Socket }) {
             </div>
           )}
 
-          {/* <------------------- Send Message -------------------> */}
-          <div className="input-box">
-            <textarea
-              name=""
-              onChange={(e) => setMessage(e.target.value)}
-              id=""
-              cols={200}
-              rows={2}
-              onKeyDown={handleTyping}
-              onBlur={() => setTyping(null)}
-            ></textarea>
-            <button onClick={handleSendMessage} type="button">
-              {" "}
-              Send{" "}
-            </button>
-          </div>
+          <div ref={lastMessageRef} />
         </div>
+      </div>
+      {/* <------------------- Send Message -------------------> */}
+      <div className="input-box">
+        <textarea
+          name=""
+          onChange={(e) => setMessage(e.target.value)}
+          id=""
+          cols={200}
+          rows={2}
+          onKeyDown={handleTyping}
+          onBlur={() => setTyping(null)}
+          placeholder="Type a message"
+        ></textarea>
+        <button onClick={handleSendMessage} type="button">
+          Send
+        </button>
       </div>
     </div>
   );
