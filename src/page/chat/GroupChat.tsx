@@ -12,7 +12,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
 
   const [message, setMessage] = useState<string>();
   const [messages, setMessages] = useState<IMessage[]>([]);
-  const [typing, setTyping] = useState<IMessage>();
+  const [typing, setTyping] = useState<IMessage | null>();
 
   const lastMessageRef = useRef(null);
 
@@ -31,6 +31,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
   };
 
   const handleTyping = () => {
+    if (!message) return;
     socket.emit("typing", {
       room,
       message,
@@ -89,7 +90,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
 
           {/* <--------------- Typing ---------------> */}
 
-          {typing && (
+          {typing && typing.email !== email && (
             <div className="message" ref={lastMessageRef}>
               <img src={UserImage} alt="User Image" />
               <div className="message-body">
@@ -110,6 +111,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
               cols={200}
               rows={2}
               onKeyDown={handleTyping}
+              onBlur={() => setTyping(null)}
             ></textarea>
             <button onClick={handleSendMessage} type="button">
               {" "}
