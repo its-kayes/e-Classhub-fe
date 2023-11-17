@@ -48,7 +48,7 @@ const routers = createBrowserRouter([
           },
           {
             path: "/classes/:room/group-chat",
-            element: <GroupChat />,
+            element: <GroupChat socket={socket} />,
           },
           {
             path: "/classes/:room/chat-with-mentor",
