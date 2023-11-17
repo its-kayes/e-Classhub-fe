@@ -45,32 +45,33 @@ export default function GroupChat({ socket }: { socket: Socket }) {
       <div className="all-messages-section">
         <div className="message-section">
           {/* <--------------- Message ---------------> */}
-          {/* {[1, 2, 4, 5, 6, 8, 9, 4, 3, 31].map(() => ( */}
-          {messages.map((msg) => (
-            <div className="message">
-              <img src={UserImage} alt="User Image" />
-              <div className="message-body">
-                <div className="header">
-                  <p className="name"> {msg.name} </p>
-                  <p className="time"> 12:00 PM </p>
+          {messages.map((msg) => {
+            if (msg.email === email) {
+              return (
+                <div className="own-message">
+                  <div className="message-body">
+                    <div className="header">
+                      <p className="time"> {msg.time?.slice(0, 10)} </p>
+                    </div>
+                    <p className="text"> {msg.message} </p>
+                  </div>
                 </div>
-                <p className="text">{msg.message}</p>
-              </div>
-            </div>
-          ))}
-
-          {/* <--------------- Own Message ---------------> */}
-          <div className="own-message">
-            <div className="message-body">
-              <div className="header">
-                <p className="time"> 12:00 PM </p>
-              </div>
-              <p className="text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore,
-                voluptates?
-              </p>
-            </div>
-          </div>
+              );
+            } else {
+              return (
+                <div className="message">
+                  <img src={UserImage} alt="User Image" />
+                  <div className="message-body">
+                    <div className="header">
+                      <p className="name"> {msg.name} </p>
+                      <p className="time"> {msg.time?.slice(0, 10)} </p>
+                    </div>
+                    <p className="text"> {msg.message} </p>
+                  </div>
+                </div>
+              );
+            }
+          })}
 
           {/* <--------------- Typing ---------------> */}
           <div className="message" ref={lastMessageRef}>
