@@ -27,6 +27,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
         email,
         time: new Date(),
       });
+      setMessage("");
     }
   };
 
@@ -133,6 +134,7 @@ export default function GroupChat({ socket }: { socket: Socket }) {
           onKeyDown={handleTyping}
           onBlur={() => setTyping(null)}
           placeholder="Type a message __"
+          value={message}
         ></textarea>
         <button onClick={handleSendMessage} type="button">
           Send
