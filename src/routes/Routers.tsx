@@ -13,7 +13,7 @@ import { io } from "socket.io-client";
 import Private from "../page/chat/Private";
 import GroupChat from "../page/chat/GroupChat";
 import MentorChat from "../page/chat/MentorChat";
-const socket = io("http://localhost:3000");
+const socket = io("https://api.eclasshub.kayes.dev");
 
 /* All of Routers */
 const routers = createBrowserRouter([
