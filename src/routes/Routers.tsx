@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../page/auth/Login";
 import Signup from "../page/auth/Signup";
-import Home from "../page/home/Home";
 import Controller from "../page/controller/Controller";
 import Setting from "../page/setting/Setting";
 import Classroom from "../page/per-class-room/Classroom";
@@ -20,7 +19,7 @@ const socket = io("http://localhost:3000");
 const routers = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Login />,
   },
   {
     path: "/classes",
