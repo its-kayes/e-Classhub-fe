@@ -19,22 +19,39 @@ type IPeopleList = {
 export default function Members() {
   const [peopleList, { isLoading }] = usePeopleListMutation();
 
-  const [allPeopleList, setAllPeopleList] = useState<IPeopleList[]>([]);
+  const [allJoinedPeopleList, setAllJoinedPeopleList] = useState<IPeopleList[]>(
+    []
+  );
+
+  const [allPendingPeopleList, setAllPendingPeopleList] = useState<
+    IPeopleList[]
+  >([]);
 
   useEffect(() => {
     async function fetchData() {
-      const result = await peopleList({
+      const joinedResult = await peopleList({
         status: "joined",
         email: "kayes.ek8@gmail.com",
         room: "UX28-TEST-7NO5",
       });
 
-      const response = catchResponse(
-        result as unknown as IResponse
+      const pendingResult = await peopleList({
+        status: "pending",
+        email: "kayes.ek8@gmail.com",
+        room: "UX28-TEST-7NO5",
+      });
+
+      const joinedResponse = catchResponse(
+        joinedResult as unknown as IResponse
       ) as IApiResponse;
 
-      console.log(response.data);
-      setAllPeopleList(response.data as IPeopleList[]);
+      const pendingResponse = catchResponse(
+        pendingResult as unknown as IResponse
+      ) as IApiResponse;
+
+      console.log(pendingResponse.data);
+      setAllJoinedPeopleList(joinedResponse.data as IPeopleList[]);
+      setAllPendingPeopleList(pendingResponse.data as IPeopleList[]);
     }
 
     fetchData();
@@ -45,7 +62,17 @@ export default function Members() {
       {/* // List of Pending student */}
       <section className="pending-box">
         <h3 className="title"> List of Pending student </h3>
-        <div>
+        {isLoading ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "90vw",
+            }}
+          >
+            <Spinner></Spinner>
+          </div>
+        ) : (
           <table className="table">
             <thead>
               <tr>
@@ -55,56 +82,54 @@ export default function Members() {
                 <th>Status</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Nguyen Van A</td>
-                <td>mail here</td>
-                <td>123456789</td>
-                <td className="status-box">
-                  <button className="status-pending"> Pending </button>
-                </td>
-              </tr>
 
-              <tr>
-                <td>Nguyen Van A</td>
-                <td>mail here</td>
-                <td>123456789</td>
-                <td className="status-box">
-                  <button className="status-pending"> Pending </button>
-                </td>
-              </tr>
+            <tbody>
+              {allPendingPeopleList?.map((item) => (
+                <tr>
+                  <td>{item.userName}</td>
+                  <td>{item.requestEmail}</td>
+                  <td>{item.gender}</td>
+                  <td className="status-box">
+                    <button className="status-pending">
+                      {item.status.charAt(0).toUpperCase() +
+                        item.status.slice(1)}
+                      {/* {item.status.toUpperCase()} */}
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
-        </div>
+        )}
       </section>
 
       {/* // List of Joined student */}
       <section className="joined-box">
         <h3 className="title"> List of Joined student </h3>
         <div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Student Name</th>
-                <th>Student Email</th>
-                <th>Student Gender</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isLoading ? (
-                // <p> Loading...</p>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    width: "90vw",
-                  }}
-                >
-                  <Spinner></Spinner>
-                </div>
-              ) : (
-                allPeopleList?.map((item) => (
+          {isLoading ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "90vw",
+              }}
+            >
+              <Spinner></Spinner>
+            </div>
+          ) : (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Student Email</th>
+                  <th>Student Gender</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {allJoinedPeopleList?.map((item) => (
                   <tr>
                     <td>{item.userName}</td>
                     <td>{item.requestEmail}</td>
@@ -117,11 +142,10 @@ export default function Members() {
                       </button>
                     </td>
                   </tr>
-                ))
-              )}
-              {}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </section>
     </div>
