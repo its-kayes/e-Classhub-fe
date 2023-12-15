@@ -7,8 +7,10 @@ import {
   catchResponse,
 } from "../../utils/catchResponse";
 import Spinner from "../../elements/spinner/Spinner";
+import { useAppSelector } from "../../store/app/hook";
+import { useParams } from "react-router-dom";
 
-type IPeopleList = {
+type IRoomPeopleList = {
   status: string;
   requestEmail: string;
   userName: string;
@@ -16,29 +18,33 @@ type IPeopleList = {
   isVerified: boolean;
   _id: string;
 };
+
 export default function Members() {
+  const { email } = useAppSelector((state) => state.local.userReducer);
+  const { room } = useParams<{ room: string }>();
+
   const [peopleList, { isLoading }] = usePeopleListMutation();
 
-  const [allJoinedPeopleList, setAllJoinedPeopleList] = useState<IPeopleList[]>(
-    []
-  );
+  const [allJoinedPeopleList, setAllJoinedPeopleList] = useState<
+    IRoomPeopleList[]
+  >([]);
 
   const [allPendingPeopleList, setAllPendingPeopleList] = useState<
-    IPeopleList[]
+    IRoomPeopleList[]
   >([]);
 
   useEffect(() => {
     async function fetchData() {
       const joinedResult = await peopleList({
         status: "joined",
-        email: "kayes.ek8@gmail.com",
-        room: "UX28-TEST-7NO5",
+        email,
+        room: room?.toUpperCase(),
       });
 
       const pendingResult = await peopleList({
         status: "pending",
-        email: "kayes.ek8@gmail.com",
-        room: "UX28-TEST-7NO5",
+        email,
+        room: room?.toUpperCase(),
       });
 
       const joinedResponse = catchResponse(
@@ -49,13 +55,13 @@ export default function Members() {
         pendingResult as unknown as IResponse
       ) as IApiResponse;
 
-      console.log(pendingResponse.data);
-      setAllJoinedPeopleList(joinedResponse.data as IPeopleList[]);
-      setAllPendingPeopleList(pendingResponse.data as IPeopleList[]);
+      // console.log(pendingResponse.data);
+      setAllJoinedPeopleList(joinedResponse.data as IRoomPeopleList[]);
+      setAllPendingPeopleList(pendingResponse.data as IRoomPeopleList[]);
     }
 
     fetchData();
-  }, [peopleList]);
+  }, [email, peopleList, room]);
 
   return (
     <div>
