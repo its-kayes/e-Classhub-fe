@@ -1,0 +1,186 @@
+// <----------------------- Group Chat ------------------------>
+.group-chat-section {
+  margin: 10px;
+  width: 89vw;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  height: 75vh;
+  border-bottom: 0;
+
+  .header-section {
+    padding: 10px 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+
+    p {
+      margin: 0;
+      align-self: stretch;
+      color: var(--gray-900, #101828);
+      font-family: Inter;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 28px;
+    }
+  }
+
+  .all-messages-section {
+    padding: 0 20px 0 20px;
+    height: 73.6%;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+
+    .message-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      margin-top: 10px;
+
+      .message {
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        width: 100%;
+        margin-bottom: 15px;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+
+        .message-body {
+          max-width: 50vw;
+
+          p {
+            margin: 0;
+          }
+
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .name {
+              margin-right: 40px;
+            }
+
+            // .time {
+            // }
+          }
+
+          .text {
+            background-color: #f2f4f7;
+            display: flex;
+            padding: 5px 14px;
+            align-items: center;
+            gap: 8px;
+            align-self: stretch;
+            border: 1px solid #e4e7eb;
+            border-radius: 0 10px 10px 10px;
+          }
+
+          .typing {
+            overflow: hidden; /* Hide the dots initially */
+            white-space: nowrap; /* Keep the dots on a single line */
+            animation: typingAnimation 1.5s infinite; /* Apply the typing 
+            animation */
+            font-weight: bold;
+          }
+
+          @keyframes typingAnimation {
+            0% {
+              width: 0; /* Start with no width, making it look like typing is starting */
+            }
+            50% {
+              width: 20px; /* Increase width halfway to create the typing effect */
+            }
+            100% {
+              width: 0; /* Reset width to 0 at the end */
+            }
+          }
+        }
+      }
+
+      .own-message {
+        display: flex;
+        justify-content: end;
+        align-items: start;
+        width: 100%;
+        margin-bottom: 15px;
+
+        .message-body {
+          max-width: 50vw;
+
+          p {
+            margin: 0;
+          }
+
+          .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            // .time {
+            // }
+          }
+
+          .text {
+            background: #5388f2;
+            display: flex;
+            padding: 10px 14px;
+            align-items: center;
+            gap: 8px;
+            align-self: stretch;
+            border-radius: 8px 0px 8px 8px;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .input-box {
+    padding-bottom: 30px;
+
+    textarea {
+      border: none;
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      padding: 0px 15px 0px 15px;
+      font-size: 16px;
+      color: black;
+      border-radius: 0px 0px 10px 10px;
+      padding-top: 10px;
+      min-height: 100px;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    textarea:focus {
+      outline: none;
+      caret-color: pointer;
+      background: linear-gradient(
+          to bottom,
+          rgb(245, 245, 245) 70%,
+          transparent 100%
+        )
+        0 0 no-repeat;
+    }
+
+    button {
+      font-weight: bold;
+      width: 100%;
+      margin: 0;
+      padding: 5px 0;
+      color: white;
+      background-color: #1c64f2;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+      box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+}

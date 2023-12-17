@@ -106,3 +106,13 @@ export type IAnnouncement = {
   id?: string;
   name: string;
 };
+
+export type IMessage = {
+  room: string;
+  message: string;
+  name: string;
+  token: string;
+  socketID: string;
+  email: string;
+  time: string;
+};

@@ -13,8 +13,18 @@ const peopleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["People"],
     }),
+    peopleList: build.mutation({
+      query: (payload) => ({
+        url: `/people/classroom/${payload.status}/${payload.email}/${payload.room}`,
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["People"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useJoinClassroomMutation } = peopleApi;
+export const { useJoinClassroomMutation, usePeopleListMutation } = peopleApi;
