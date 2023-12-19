@@ -36,6 +36,7 @@ import {
 import toast from "react-hot-toast";
 import { useJoinClassroomMutation } from "../../store/service/peopleApi";
 import { useAppSelector } from "../../store/app/hook";
+import { UserImage } from "../../importer/importer";
 
 const drawerWidth = 240;
 
@@ -295,7 +296,7 @@ export default function Controller() {
                       border: "1px solid #1C64F2",
                       borderRadius: "50%",
                     }}
-                    src="/src/assets/kayes.jpg"
+                    src={UserImage}
                     alt=""
                   />
                 </Box>
