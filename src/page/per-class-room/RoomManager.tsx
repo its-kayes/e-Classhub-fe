@@ -21,19 +21,6 @@ export default function RoomManager() {
         Stream
       </Button>
     </Link>,
-    <Button
-      key="Classwork"
-      sx={{
-        textTransform: "none",
-        color: "black",
-        "&:active": {
-          backgroundColor: "#1C64F2",
-          color: "white",
-        },
-      }}
-    >
-      Classwork
-    </Button>,
     <Link to={`/classes/${room}/members`}>
       <Button
         key="People"
