@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { usePeopleListMutation } from "../../store/service/peopleApi";
+import {
+  useChangeStatusMutation,
+  usePeopleListMutation,
+} from "../../store/service/peopleApi";
 import "./Members.scss";
 import {
   IApiResponse,
@@ -24,6 +27,7 @@ export default function Members() {
   const { room } = useParams<{ room: string }>();
 
   const [peopleList, { isLoading }] = usePeopleListMutation();
+  const [changeStatus] = useChangeStatusMutation();
 
   const [allJoinedPeopleList, setAllJoinedPeopleList] = useState<
     IRoomPeopleList[]
@@ -63,6 +67,16 @@ export default function Members() {
     fetchData();
   }, [email, peopleList, room]);
 
+  const handleChangeStatus = async (id: string, status: string) => {
+    const result = await changeStatus({ id, status });
+
+    const resultResponse = catchResponse(
+      result as unknown as IResponse
+    ) as IApiResponse;
+
+    return resultResponse;
+  };
+
   return (
     <div>
       {/* // List of Pending student */}
@@ -96,7 +110,10 @@ export default function Members() {
                   <td>{item.requestEmail}</td>
                   <td>{item.gender}</td>
                   <td className="status-box">
-                    <button className="status-pending">
+                    <button
+                      onClick={() => handleChangeStatus(item._id, "joined")}
+                      className="status-pending"
+                    >
                       {item.status.charAt(0).toUpperCase() +
                         item.status.slice(1)}
                       {/* {item.status.toUpperCase()} */}

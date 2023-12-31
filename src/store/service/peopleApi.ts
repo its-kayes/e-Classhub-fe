@@ -13,6 +13,7 @@ const peopleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["People"],
     }),
+
     peopleList: build.mutation({
       query: (payload) => ({
         url: `/people/classroom/${payload.status}/${payload.email}/${payload.room}`,
@@ -23,8 +24,24 @@ const peopleApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["People"],
     }),
+
+    changeStatus: build.mutation({
+      query: (payload) => ({
+        url: "/people/change-status",
+        method: "PATCH",
+        body: payload,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+      invalidatesTags: ["People"],
+    }),
   }),
   overrideExisting: false,
 });
 
-export const { useJoinClassroomMutation, usePeopleListMutation } = peopleApi;
+export const {
+  useJoinClassroomMutation,
+  usePeopleListMutation,
+  useChangeStatusMutation,
+} = peopleApi;
