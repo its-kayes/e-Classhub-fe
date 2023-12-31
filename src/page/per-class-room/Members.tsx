@@ -37,6 +37,8 @@ export default function Members() {
     IRoomPeopleList[]
   >([]);
 
+  const [statusUpdate, setStatusUpdate] = useState(0);
+
   useEffect(() => {
     async function fetchData() {
       const joinedResult = await peopleList({
@@ -65,7 +67,7 @@ export default function Members() {
     }
 
     fetchData();
-  }, [email, peopleList, room]);
+  }, [email, peopleList, room, statusUpdate]);
 
   const handleChangeStatus = async (id: string, status: string) => {
     const result = await changeStatus({ id, status });
@@ -73,6 +75,8 @@ export default function Members() {
     const resultResponse = catchResponse(
       result as unknown as IResponse
     ) as IApiResponse;
+
+    setStatusUpdate(statusUpdate + 1);
 
     return resultResponse;
   };
@@ -158,7 +162,10 @@ export default function Members() {
                     <td>{item.requestEmail}</td>
                     <td>{item.gender}</td>
                     <td className="status-box">
-                      <button className="status-joined">
+                      <button
+                        className="status-joined"
+                        onClick={() => handleChangeStatus(item._id, "pending")}
+                      >
                         {item.status.charAt(0).toUpperCase() +
                           item.status.slice(1)}
                         {/* {item.status.toUpperCase()} */}
